@@ -28,7 +28,7 @@ Calculate PSNR, SSIM and NIQE (MATLAB version) with MATLAB:
 
 Calculate PI, NIQE (PIRM 18' version) and MA with MATLAB:
 
-1. Download `iqa_pi_niqe_ma` folder at [[百度网盘 (iqaa)]](链接:https://pan.baidu.com/s/1jJB7EjdhPchGJ6XFKxF6IA).
+1. Download `iqa_pi_niqe_ma` folder at [[百度网盘 (iqaa)]](https://pan.baidu.com/s/1jJB7EjdhPchGJ6XFKxF6IA).
 2. Change `csv_file_name`, `ref_dir`, `src_dir` and `dst_dir` in `iqa_pi_niqe_ma.m`.
 3. Run `iqa_pi_niqe_ma.m`.
 4. Note that image list is based on `dst_dir`.
