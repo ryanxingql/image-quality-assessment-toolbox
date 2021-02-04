@@ -20,28 +20,42 @@
 
 ## Command
 
-Calculate PSNR, SSIM and NIQE (MATLAB version) with MATLAB:
+<details>
+<summary><b>Calculate PSNR, SSIM and NIQE (MATLAB version) with MATLAB</b></summary>
 
 1. Change `csv_file_name`, `ref_dir`, `src_dir` and `dst_dir` in `iqa_psnr_ssim_niqe.m`.
 2. Run `iqa_psnr_ssim_niqe.m`.
-3. Note that image list is based on `dst_dir`.
 
-Calculate PI, NIQE (PIRM 18' version) and MA with MATLAB:
+Note that image list is based on `dst_dir`.
+
+</details>
+
+<details>
+<summary><b>Calculate PI, NIQE (PIRM 18' version) and MA with MATLAB</b></summary>
 
 1. Download `iqa_pi_niqe_ma` folder at [[百度网盘 (iqaa)]](https://pan.baidu.com/s/1jJB7EjdhPchGJ6XFKxF6IA).
 2. Change `csv_file_name`, `ref_dir`, `src_dir` and `dst_dir` in `iqa_pi_niqe_ma.m`.
 3. Run `iqa_pi_niqe_ma.m`.
-4. Note that image list is based on `dst_dir`.
-5. Note that the NIQE model here is different from that within MATLAB (so as the results). I personally prefer the latter.
 
-Calculate LPIPS with PYTHON:
+Note that:
 
-1. Create CONDA environment: `conda create -n iqa python=3.6 -y`, and enter this environment: `conda activate iqa`.
+- image list is based on `dst_dir`.
+- the NIQE model (PIRM 18' version) is different from the MATLAB version (so as the results). I prefer the latter.
+
+</details>
+
+<details>
+<summary><b>Calculate LPIPS with PYTHON</b></summary>
+
+1. Create CONDA environment: `conda create -n iqa python=3.7 -y`, and enter this environment: `conda activate iqa`.
 2. Install TORCH: `python -m pip install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html`.
 3. Install other dependencies: `python -m pip install lpips opencv-python scipy tqdm`
 4. Change `csv_file_name`, `ref_dir`, `src_dir` and `dst_dir` in `iqa_lpips.py`.
 5. Run `iqa_lpips.py`.
-6. Note that image list is based on `dst_dir`.
+
+Note that image list is based on `dst_dir`.
+
+</details>
 
 ## Licenses
 

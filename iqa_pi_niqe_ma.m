@@ -1,6 +1,6 @@
-dst_dir = fullfile('/home/x/data/GitZone/FR/exp/FR_512_QF30_noBN_noHiIN/img_enhanced_val');
-ref_dir = fullfile('/home/x/data/GitZone/FR/data/FFHQ/1024x1024_10k/raw');
-src_dir = fullfile('/home/x/data/GitZone/FR/data/FFHQ/1024x1024_10k/jpeg/qf30');
+ref_dir = '/dir/to/reference/png/'
+src_dir = '/dir/to/source/png/'
+dst_dir = '/dir/to/distorted/png/'
 csv_file_name = 'iqa_pi_niqe_ma.csv';
 
 save_dir = fullfile(pwd, 'logs');

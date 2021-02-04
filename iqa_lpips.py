@@ -6,9 +6,9 @@ from cv2 import cv2
 import lpips
 import numpy as np
 
-ref_dir = '/home/x/data/GitZone/FR/data/FFHQ/1024x1024_10k/raw'
-src_dir = '/home/x/data/GitZone/FR/data/FFHQ/1024x1024_10k/jpeg/qf30'
-dst_dir = '/home/x/data/GitZone/FR/exp/FR_512_QF30_noBN_noHiIN/img_enhanced_val'
+ref_dir = '/dir/to/reference/png/'
+src_dir = '/dir/to/source/png/'
+dst_dir = '/dir/to/distorted/png/'
 csv_file_name = 'iqa_lpips.csv'
 
 dst_lst = sorted(glob.glob(os.path.join(dst_dir, '*.png')))
