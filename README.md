@@ -5,6 +5,8 @@
   - [Command](#command)
   - [Licenses](#licenses)
 
+Feel free to contact: <ryanxingql@gmail.com>.
+
 ## Content
 
 |Metric|Implementation|Note|Ref|
@@ -22,16 +24,19 @@
 
 <details>
 <summary><b>Calculate PSNR, SSIM and NIQE (MATLAB version) with MATLAB</b></summary>
+<p>
 
 1. Change `csv_file_name`, `ref_dir`, `src_dir` and `dst_dir` in `iqa_psnr_ssim_niqe.m`.
 2. Run `iqa_psnr_ssim_niqe.m`.
 
 Note that image list is based on `dst_dir`.
 
+</p>
 </details>
 
 <details>
 <summary><b>Calculate PI, NIQE (PIRM 18' version) and MA with MATLAB</b></summary>
+<p>
 
 1. Download `iqa_pi_niqe_ma` folder at [[百度网盘 (iqaa)]](https://pan.baidu.com/s/1jJB7EjdhPchGJ6XFKxF6IA).
 2. Change `csv_file_name`, `ref_dir`, `src_dir` and `dst_dir` in `iqa_pi_niqe_ma.m`.
@@ -42,10 +47,12 @@ Note that:
 - image list is based on `dst_dir`.
 - the NIQE model (PIRM 18' version) is different from the MATLAB version (so as the results). I prefer the latter.
 
+</p>
 </details>
 
 <details>
 <summary><b>Calculate LPIPS with PYTHON</b></summary>
+<p>
 
 1. Create CONDA environment: `conda create -n iqa python=3.7 -y`, and enter this environment: `conda activate iqa`.
 2. Install TORCH: `python -m pip install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html`.
@@ -55,6 +62,7 @@ Note that:
 
 Note that image list is based on `dst_dir`.
 
+</p>
 </details>
 
 ## Licenses
