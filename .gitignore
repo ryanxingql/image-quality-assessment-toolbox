@@ -1,2 +1,6 @@
+.vscode/
+__pycache__/
+tmp*
+
 logs/
 iqa_pi_niqe_ma/

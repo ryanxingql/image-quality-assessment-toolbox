@@ -6,19 +6,21 @@ from cv2 import cv2
 import lpips
 import numpy as np
 
+tag = 'v1'
 ref_dir = '/dir/to/reference/png/'
 src_dir = '/dir/to/source/png/'
 dst_dir = '/dir/to/distorted/png/'
-csv_file_name = 'iqa_lpips.csv'
+csv_file_name = f'iqa-lpips-{tag}.csv'
 
-dst_lst = sorted(glob.glob(os.path.join(dst_dir, '*.png')))
+dst_path_lst = sorted(glob.glob(os.path.join(dst_dir, '*.png')))
+num = len(dst_path_lst)
 
 log_dir = os.path.join(os.getcwd(), 'logs')
 if not os.path.exists(log_dir):
     os.mkdir('logs')
 fp = open(os.path.join(log_dir, csv_file_name), 'w')
 
-fp.write('im_name,lpips_src,lpips_dst,lpips_del\n')
+fp.write('im_name,src,dst,del\n')
 
 class LPIPS(torch.nn.Module):
     """Learned Perceptual Image Patch Similarity.
@@ -54,11 +56,12 @@ class LPIPS(torch.nn.Module):
 
 lpips_forward = LPIPS().forward
 
-lpips_src = []
-lpips_dst= []
-lpips_del = []
-
-for dst_path in dst_lst:
+im_name_lst = []
+src_lst = []
+dst_lst= []
+del_lst = []
+result_lst = []
+for idx, dst_path in enumerate(dst_path_lst):
     im_name = dst_path.split('/')[-1]
     ref_path = os.path.join(ref_dir, im_name)
     src_path = os.path.join(src_dir, im_name)
@@ -67,16 +70,20 @@ for dst_path in dst_lst:
     src = cv2.imread(src_path)
     dst = cv2.imread(dst_path)
 
-    lpips_src.append(lpips_forward(ref, src))
-    lpips_dst.append(lpips_forward(ref, dst))
-    lpips_del.append(lpips_dst[-1] - lpips_src[-1])
+    im_name_lst.append(im_name)
+    src_lst.append(lpips_forward(ref, src))
+    dst_lst.append(lpips_forward(ref, dst))
+    del_lst.append(dst_lst[-1] - src_lst[-1])
 
-    result = f'{im_name},{lpips_src[-1]:.3f},{lpips_dst[-1]:.3f},{lpips_del[-1]:.3f}'
-    print(result)
-    fp.write(result + '\n')
+    result = f'{im_name},{src_lst[-1]:.3f},{dst_lst[-1]:.3f},{del_lst[-1]:.3f}'
+    result_lst.append(result)
 
-result = f'ave.,{np.mean(lpips_src):.3f},{np.mean(lpips_dst):.3f},{np.mean(lpips_del):.3f}'
+    print(f'{idx+1}/{num}: ' + result)
+
+result = f'ave.,{np.mean(src_lst):.3f},{np.mean(dst_lst):.3f},{np.mean(del_lst):.3f}'
 print(result)
-fp.write(result)
+fp.write(result + '\n')
 
+for idx in range(num):
+    fp.write(result_lst[idx] + '\n')
 fp.close()
