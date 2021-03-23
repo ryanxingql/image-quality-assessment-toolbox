@@ -9,17 +9,17 @@ Feel free to contact: <ryanxingql@gmail.com>.
 
 ## Content
 
-|metric|platform|class|range|better|note|ref|
+|metric|class|note|better|range|ref|platform|
 |:-|:-|:-|:-|:-|:-|:-|
-|peak signal-to-noise ratio (PSNR)|MATLAB|FR|[0, inf)|$\uparrow$|higher PSNR corresponds to lower mean squared error (MSE). when error at each pixel is MAX, PSNR equals to 0.|[[WIKI]](https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio)|
-|structural similarity index measure (SSIM)|MATLAB|FR|(?, 1]|$\uparrow$|difference between luminances (mean values), contrasts (variances) and structures (covariances) of two image patches.|[[WIKI]](https://en.wikipedia.org/wiki/Structural_similarity)|
-|natural image quality evaluator (NIQE)|MATLAB|NR|[0, ?)|$\downarrow$|Mahalanobis distance between two multivariate Gaussian models of 36-dim features from natural (training) and input sharp patches.|[[MATLAB]](https://www.mathworks.com/help/images/ref/niqe.html) [[paper]](https://ieeexplore.ieee.org/document/6353522)|
-|Ma *et al.* (MA)|MATLAB|NR|[0, 10]|$\uparrow$|joint difference in DCT, wavelet and PCA domains. very slow!|[[official repo]](https://github.com/chaoma99/sr-metric) [[paper]](https://arxiv.org/abs/1612.05890)|
-|perceptual index (PI)|MATLAB|NR|[0, ?)|$\downarrow$|0.5 * ((10 - MA) + NIQE). very slow due to MA!|[[official repo]](https://github.com/roimehrez/PIRM2018) [[paper]](https://arxiv.org/abs/1809.07517)|
-|learned perceptual image patch similarity (LPIPS)|PYTORCH|FR|[0, ?)|$\downarrow$|L2 distance between AlexNet/SqueezeNet/VGG activations of reference and distorted images; Trainable.|[[official repo]](https://github.com/richzhang/PerceptualSimilarity)|
-|Fréchet inception distance (FID)|PYTORCH|FR|[0, ?)|$\downarrow$|Wasserstein-2 distance between two vectors of InceptionV3 activations (fed with reference and distorted images)|[[official repo]](https://github.com/mseitzer/pytorch-fid) [[paper]](https://arxiv.org/abs/1706.08500)|
-|mean opinion score (MOS)|human|sub.|[0, 100]|$\uparrow$|image rating under strict rules and environment|[[BT.500]](https://www.itu.int/rec/R-REC-BT.500/)|
-|degradation/difference/differential MOS (DMOS)|human|sub.|[0, 100]|$\downarrow$|difference between MOS values of reference and distorted images.|[[src1]](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=762345)  [[src2]](https://videoclarity.com/PDF/WPUnderstandingJNDMOSPSNR.pdf)|
+|peak signal-to-noise ratio (PSNR)|FR|higher PSNR corresponds to lower mean squared error (MSE). when error at each pixel is MAX, PSNR equals to 0.|$\uparrow$|[0, inf)|[[WIKI]](https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio)|MATLAB|
+|structural similarity index measure (SSIM)|FR|difference between luminances (mean values), contrasts (variances) and structures (covariances) of two image patches.|$\uparrow$|(?, 1]|[[WIKI]](https://en.wikipedia.org/wiki/Structural_similarity)|MATLAB|
+|natural image quality evaluator (NIQE)|NR|Mahalanobis distance between two multivariate Gaussian models of 36-dim features from natural (training) and input sharp patches.|$\downarrow$|[0, ?)|[[MATLAB]](https://www.mathworks.com/help/images/ref/niqe.html) [[paper]](https://ieeexplore.ieee.org/document/6353522)|MATLAB|
+|Ma *et al.* (MA)|NR|joint difference in DCT, wavelet and PCA domains. very slow!|$\uparrow$|[0, 10]|[[official repo]](https://github.com/chaoma99/sr-metric) [[paper]](https://arxiv.org/abs/1612.05890)|MATLAB|
+|perceptual index (PI)|NR|0.5 * ((10 - MA) + NIQE). very slow due to MA!|$\downarrow$|[0, ?)|[[official repo]](https://github.com/roimehrez/PIRM2018) [[paper]](https://arxiv.org/abs/1809.07517)|MATLAB|
+|learned perceptual image patch similarity (LPIPS)|FR|L2 distance between AlexNet/SqueezeNet/VGG activations of reference and distorted images. trainable.|$\downarrow$|[0, ?)|[[official repo]](https://github.com/richzhang/PerceptualSimilarity)|PYTORCH|
+|Fréchet inception distance (FID)|FR|Wasserstein-2 distance between two vectors of InceptionV3 activations (fed with reference and distorted images).|$\downarrow$|[0, ?)|[[official repo]](https://github.com/mseitzer/pytorch-fid) [[paper]](https://arxiv.org/abs/1706.08500)|PYTORCH|
+|mean opinion score (MOS)|sub.|image rating under strict rules and environment.|$\uparrow$|[0, 100]|[[BT.500]](https://www.itu.int/rec/R-REC-BT.500/)|human|
+|degradation/difference/differential MOS (DMOS)|sub.|difference between MOS values of reference and distorted images.|$\downarrow$|[0, 100]|[[src1]](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=762345)  [[src2]](https://videoclarity.com/PDF/WPUnderstandingJNDMOSPSNR.pdf)|human|
 
 ## Command
 
