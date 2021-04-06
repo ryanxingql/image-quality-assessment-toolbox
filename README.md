@@ -58,7 +58,7 @@ Note that:
 1. Create CONDA environment: `conda create -n iqa python=3.7 -y`, and enter this environment: `conda activate iqa`.
 2. Install TORCH: `python -m pip install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html`.
 3. Install other dependecies: `python -m pip install opencv-python scipy tqdm`
-4. Install LPIPS: `python -m pip install lpips=0.1.3`
+4. Install LPIPS: `python -m pip install lpips==0.1.3`
 5. Edit paths in `iqa_lpips.py`.
 6. Run `iqa_lpips.py`.
 
