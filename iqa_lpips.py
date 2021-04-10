@@ -18,7 +18,12 @@ num = len(dst_path_lst)
 log_dir = os.path.join(os.getcwd(), 'logs')
 if not os.path.exists(log_dir):
     os.mkdir('logs')
-fp = open(os.path.join(log_dir, csv_file_name), 'w')
+csv_path = os.path.join(log_dir, csv_file_name)
+fp = open(csv_path, 'w')
+
+for str_ in [ref_dir, src_dir, dst_dir, csv_path]:
+    print(str_)
+    fp.write(str_ + '\n')
 
 fp.write('im_name,src,dst,del\n')
 
