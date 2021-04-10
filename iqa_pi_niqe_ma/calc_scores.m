@@ -9,8 +9,8 @@ if fid<0
     errordlg('File creation failed', 'Error');
 end
 
-for str_ = [GT_dir, cmp_dir, input_dir, csv_file_path]
-    fprintf(fid, [str_, '\n']);
+for str_ = {GT_dir, cmp_dir, input_dir, csv_file_path}
+    fprintf(fid, [str_{1}, '\n']);
 end
 fprintf(fid, 'im_name,pi_ref,pi_src,pi_dst,pi_del,niqe_ref,niqe_src,niqe_dst,niqe_del,ma_ref,ma_src,ma_dst,ma_del\n');  % only comma, no blank!
 

@@ -10,8 +10,8 @@ csv_file_path = fullfile(save_dir, csv_file_name);
 
 fid = fopen(csv_file_path, 'w');
 
-for str_ = [ref_dir, src_dir, dst_dir, csv_file_path]
-    fprintf(fid, [str_, '\n']);
+for str_ = {ref_dir, src_dir, dst_dir, csv_file_path}
+    fprintf(fid, [str_{1}, '\n']);
 end
 fprintf(fid, 'im_name,psnr_src,psnr_dst,psnr_del,ssim_src,ssim_dst,ssim_del,niqe_ref,niqe_src,niqe_dst,niqe_del\n');  % only comma, no blank!
 
