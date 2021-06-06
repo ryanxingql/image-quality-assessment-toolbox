@@ -1,17 +1,17 @@
 # Image Quality Assessment Toolbox
 
 - [Image Quality Assessment Toolbox](#image-quality-assessment-toolbox)
-  - [Content](#content)
-  - [Command](#command)
+  - [1. Content](#1-content)
+  - [2. Command](#2-command)
     - [Evaluate PSNR, SSIM and NIQE (MATLAB built-in version)](#evaluate-psnr-ssim-and-niqe-matlab-built-in-version)
     - [Evaluate PI, NIQE (PIRM 18' version) and MA](#evaluate-pi-niqe-pirm-18-version-and-ma)
     - [Evaluate LPIPS](#evaluate-lpips)
     - [Evaluate FID](#evaluate-fid)
-  - [Licenses](#licenses)
+  - [3. Licenses](#3-licenses)
 
 Feel free to contact: `ryanxingql@gmail.com`.
 
-## Content
+## 1. Content
 
 |metric|class|note|better|range|ref|platform|
 |:-|:-|:-|:-|:-|:-|:-|
@@ -25,9 +25,12 @@ Feel free to contact: `ryanxingql@gmail.com`.
 |mean opinion score (MOS)|sub.|Image rating under strict rules and environment.|higher|[0, 100]|[[BT.500]](https://www.itu.int/rec/R-REC-BT.500/)|human|
 |degradation/difference/differential MOS (DMOS)|sub.|Difference between MOS values of reference and distorted images.|lower|[0, 100]|[[src1]](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=762345)  [[src2]](https://videoclarity.com/PDF/WPUnderstandingJNDMOSPSNR.pdf)|human|
 
-## Command
+## 2. Command
 
-Note that the list of the evaluated images is based on `dst_dir`.
+Note:
+
+- ref: reference, e.g., raw images; src: source, e.g., jpeg-compressed images; dst: distorted, e.g., enhanced compressed images.
+- the list of the evaluated images is based on `dst_dir`.
 
 ### Evaluate PSNR, SSIM and NIQE (MATLAB built-in version)
 
@@ -36,7 +39,7 @@ Note that the list of the evaluated images is based on `dst_dir`.
 
 ### Evaluate PI, NIQE (PIRM 18' version) and MA
 
-1. Download `iqa_pi_niqe_ma/src/` folder at [[Releases]](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/releases) or [[百度网盘 (iqaa)]](https://pan.baidu.com/s/1jJB7EjdhPchGJ6XFKxF6IA).
+1. Download `iqa_pi_niqe_ma/src/` folder at Releases or [[百度网盘 (iqaa)]](https://pan.baidu.com/s/1jJB7EjdhPchGJ6XFKxF6IA).
 2. Edit paths in `iqa_pi_niqe_ma.m`.
 3. Run `iqa_pi_niqe_ma.m`.
 
@@ -46,19 +49,18 @@ Note: the NIQE model (PIRM 18' version) is different from the MATLAB built-in ve
 
 1. Create CONDA environment: `conda create -n iqa python=3.7 -y`, and enter this environment: `conda activate iqa`.
 2. Install TORCH: `python -m pip install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html`.
-3. Install other dependecies: `python -m pip install opencv-python scipy tqdm`
-4. Install LPIPS: `python -m pip install lpips==0.1.3`
-5. Edit paths in `iqa_lpips.py`.
-6. Run `iqa_lpips.py`.
+3. Install other dependecies: `python -m pip install opencv-python scipy tqdm lpips==0.1.3`
+4. Edit paths in `iqa_lpips.py`.
+5. Run `iqa_lpips.py`.
 
 ### Evaluate FID
 
 1. Create CONDA environment: `conda create -n iqa python=3.7 -y`, and enter this environment: `conda activate iqa`.
-2. Install packages: `pip install pytorch-fid==0.2.0`.
+2. Install dependecies: `pip install pytorch-fid==0.2.0`.
 3. Edit paths in `iqa_fid.py`.
 4. Run `iqa_fid.py`.
 
-## Licenses
+## 3. Licenses
 
 Please refer to the official repositories.
 

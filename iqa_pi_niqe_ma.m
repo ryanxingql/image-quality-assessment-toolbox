@@ -2,7 +2,7 @@ tag = 'v1'
 ref_dir = '/dir/to/reference/png/'
 src_dir = '/dir/to/source/png/'
 dst_dir = '/dir/to/distorted/png/'
-csv_file_name = ['iqa-pi-niqe-ma-', tag, '.csv']
+csv_file_name = ['iqa_pi_niqe_ma_', tag, '.csv']
 
 save_dir = fullfile(pwd, 'logs');
 mkdir(save_dir);

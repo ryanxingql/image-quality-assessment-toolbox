@@ -8,7 +8,7 @@ tag = 'v1'
 ref_dir = '/dir/to/reference/png/'
 src_dir = '/dir/to/source/png/'
 dst_dir = '/dir/to/distorted/png/'
-csv_file_name = f'iqa-fid-{tag}.csv'
+csv_file_name = f'iqa_fid_{tag}.csv'
 
 dst_path_lst = sorted(glob.glob(os.path.join(dst_dir, '*.png')))
 num = len(dst_path_lst)
@@ -23,9 +23,9 @@ for str_ in [ref_dir, src_dir, dst_dir, csv_path]:
     print(str_)
     fp.write(str_ + '\n')
 
-tmp_ref_dir = os.path.join(os.getcwd(), f'tmp-fid-ref-{tag}-dont-del')
-tmp_src_dir = os.path.join(os.getcwd(), f'tmp-fid-src-{tag}-dont-del')
-tmp_dst_dir = os.path.join(os.getcwd(), f'tmp-fid-dst-{tag}-dont-del')
+tmp_ref_dir = os.path.join(os.getcwd(), f'tmp_fid_ref_{tag}_dont_del')
+tmp_src_dir = os.path.join(os.getcwd(), f'tmp_fid_src_{tag}_dont_del')
+tmp_dst_dir = os.path.join(os.getcwd(), f'tmp_fid_dst_{tag}_dont_del')
 if not os.path.exists(tmp_ref_dir):
     os.makedirs(tmp_ref_dir)
 if not os.path.exists(tmp_src_dir):
@@ -33,9 +33,9 @@ if not os.path.exists(tmp_src_dir):
 if not os.path.exists(tmp_dst_dir):
     os.makedirs(tmp_dst_dir)
 
-tmp_ref = os.path.join(tmp_ref_dir, 'ref-tmp.png')
-tmp_src = os.path.join(tmp_src_dir, 'src-tmp.png')
-tmp_dst = os.path.join(tmp_dst_dir, 'dst-tmp.png')
+tmp_ref = os.path.join(tmp_ref_dir, 'ref_tmp.png')
+tmp_src = os.path.join(tmp_src_dir, 'src_tmp.png')
+tmp_dst = os.path.join(tmp_dst_dir, 'dst_tmp.png')
 
 fp.write('im_name,src,dst,del\n')
 

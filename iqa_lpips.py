@@ -10,7 +10,7 @@ tag = 'v1'
 ref_dir = '/dir/to/reference/png/'
 src_dir = '/dir/to/source/png/'
 dst_dir = '/dir/to/distorted/png/'
-csv_file_name = f'iqa-lpips-{tag}.csv'
+csv_file_name = f'iqa_lpips_{tag}.csv'
 
 dst_path_lst = sorted(glob.glob(os.path.join(dst_dir, '*.png')))
 num = len(dst_path_lst)
