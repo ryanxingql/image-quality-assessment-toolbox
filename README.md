@@ -39,7 +39,7 @@ Note:
 
 ### Evaluate PI, NIQE (PIRM 18' version) and MA
 
-1. Download `iqa_pi_niqe_ma/src/` folder at Releases or [[百度网盘 (iqaa)]](https://pan.baidu.com/s/1jJB7EjdhPchGJ6XFKxF6IA).
+1. Download `iqa_pi_niqe_ma/src/` folder at Releases.
 2. Edit paths in `iqa_pi_niqe_ma.m`.
 3. Run `iqa_pi_niqe_ma.m`.
 
