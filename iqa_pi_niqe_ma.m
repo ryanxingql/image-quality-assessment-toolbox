@@ -1,7 +1,7 @@
-tag = 'v1'
-src_dir = '/dir/to/source/png/'
-dst_dir = '/dir/to/distorted/png/'
-tar_dir = '/dir/to/target/png/'
+tag = 'arcnn_div2k_qf10'
+src_dir = '/home/xql/data/div2k/raw'
+dst_dir = '/home/xql/data/div2k/jpeg/qf10'
+tar_dir = '/home/xql/data/pycharm/PowerQE/exp/arcnn_div2k_qf10/enhanced_images'
 csv_file_name = ['iqa_pi_niqe_ma_', tag, '.csv']
 
 save_dir = fullfile(pwd, 'logs');
