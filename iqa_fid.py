@@ -8,7 +8,6 @@ tag = 'arcnn_div2k_qf10'
 src_dir = Path('/home/xql/data/div2k/raw').resolve()
 dst_dir = Path('/home/xql/data/div2k/jpeg/qf10').resolve()
 tar_dir = Path('/home/xql/data/pycharm/PowerQE/exp/arcnn_div2k_qf10/enhanced_images').resolve()
-csv_file_name = f'iqa_fid_{tag}.csv'
 
 tar_path_lst = sorted(tar_dir.glob('*.png'))
 num = len(tar_path_lst)
