@@ -1,7 +1,7 @@
 tag = 'v1'
-ref_dir = '/dir/to/reference/png/'
 src_dir = '/dir/to/source/png/'
 dst_dir = '/dir/to/distorted/png/'
+tar_dir = '/dir/to/target/png/'
 csv_file_name = ['iqa_pi_niqe_ma_', tag, '.csv']
 
 save_dir = fullfile(pwd, 'logs');
@@ -17,4 +17,4 @@ shave_width = 0;
 verbose = false;
 
 % Calculate scores and save
-calc_scores(dst_dir, ref_dir, src_dir, shave_width, verbose, csv_file_path);
+calc_scores(tar_dir, src_dir, dst_dir, shave_width, verbose, csv_file_path);

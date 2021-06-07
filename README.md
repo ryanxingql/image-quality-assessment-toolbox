@@ -31,8 +31,8 @@ Current version: [v1]
 
 Note:
 
-- ref: reference, e.g., raw images; src: source, e.g., jpeg-compressed images; dst: distorted, e.g., enhanced compressed images.
-- the list of the evaluated images is based on `dst_dir`.
+- src: source, e.g., raw images; dst: distorted, e.g., jpeg-compressed images; tar: target, e.g., enhanced compressed images.
+- the list of the evaluated images is based on `tar_dir`.
 
 ### Evaluate PSNR, SSIM and NIQE (MATLAB built-in version)
 

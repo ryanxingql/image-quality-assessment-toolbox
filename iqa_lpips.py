@@ -7,13 +7,13 @@ import lpips
 import numpy as np
 
 tag = 'v1'
-ref_dir = '/dir/to/reference/png/'
 src_dir = '/dir/to/source/png/'
 dst_dir = '/dir/to/distorted/png/'
+tar_dir = '/dir/to/target/png/'
 csv_file_name = f'iqa_lpips_{tag}.csv'
 
-dst_path_lst = sorted(glob.glob(os.path.join(dst_dir, '*.png')))
-num = len(dst_path_lst)
+tar_path_lst = sorted(glob.glob(os.path.join(tar_dir, '*.png')))
+num = len(tar_path_lst)
 
 log_dir = os.path.join(os.getcwd(), 'logs')
 if not os.path.exists(log_dir):
@@ -21,11 +21,11 @@ if not os.path.exists(log_dir):
 csv_path = os.path.join(log_dir, csv_file_name)
 fp = open(csv_path, 'w')
 
-for str_ in [ref_dir, src_dir, dst_dir, csv_path]:
+for str_ in [src_dir, dst_dir, tar_dir, csv_path]:
     print(str_)
     fp.write(str_ + '\n')
 
-fp.write('im_name,src,dst,del\n')
+fp.write('im_name,dst,tar,del\n')
 
 class LPIPS(torch.nn.Module):
     """Learned Perceptual Image Patch Similarity.
@@ -62,30 +62,30 @@ class LPIPS(torch.nn.Module):
 lpips_forward = LPIPS().forward
 
 im_name_lst = []
-src_lst = []
-dst_lst= []
+dst_lst = []
+tar_lst= []
 del_lst = []
 result_lst = []
-for idx, dst_path in enumerate(dst_path_lst):
-    im_name = dst_path.split('/')[-1]
-    ref_path = os.path.join(ref_dir, im_name)
+for idx, tar_path in enumerate(tar_path_lst):
+    im_name = tar_path.split('/')[-1]
     src_path = os.path.join(src_dir, im_name)
+    dst_path = os.path.join(dst_dir, im_name)
     
-    ref = cv2.imread(ref_path)
     src = cv2.imread(src_path)
     dst = cv2.imread(dst_path)
+    tar = cv2.imread(tar_path)
 
     im_name_lst.append(im_name)
-    src_lst.append(lpips_forward(ref, src))
-    dst_lst.append(lpips_forward(ref, dst))
-    del_lst.append(dst_lst[-1] - src_lst[-1])
+    dst_lst.append(lpips_forward(src, dst))
+    tar_lst.append(lpips_forward(src, tar))
+    del_lst.append(tar_lst[-1] - dst_lst[-1])
 
-    result = f'{im_name},{src_lst[-1]:.3f},{dst_lst[-1]:.3f},{del_lst[-1]:.3f}'
+    result = f'{im_name},{dst_lst[-1]:.3f},{tar_lst[-1]:.3f},{del_lst[-1]:.3f}'
     result_lst.append(result)
 
     print(f'{idx+1}/{num}: ' + result)
 
-result = f'ave.,{np.mean(src_lst):.3f},{np.mean(dst_lst):.3f},{np.mean(del_lst):.3f}'
+result = f'ave.,{np.mean(dst_lst):.3f},{np.mean(tar_lst):.3f},{np.mean(del_lst):.3f}'
 print(result)
 fp.write(result + '\n')
 

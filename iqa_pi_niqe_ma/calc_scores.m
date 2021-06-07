@@ -12,7 +12,7 @@ end
 for str_ = {GT_dir, cmp_dir, input_dir, csv_file_path}
     fprintf(fid, [str_{1}, '\n']);
 end
-fprintf(fid, 'im_name,pi_ref,pi_src,pi_dst,pi_del,niqe_ref,niqe_src,niqe_dst,niqe_del,ma_ref,ma_src,ma_dst,ma_del\n');  % only comma, no blank!
+fprintf(fid, 'im_name,pi_src,pi_dst,pi_tar,pi_del,niqe_src,niqe_dst,niqe_tar,niqe_del,ma_src,ma_dst,ma_tar,ma_del\n');  % only comma, no blank!
 
 %% Loading model
 
