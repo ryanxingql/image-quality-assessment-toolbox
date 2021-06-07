@@ -9,7 +9,9 @@
     - [Evaluate FID](#evaluate-fid)
   - [3. Licenses](#3-licenses)
 
-Feel free to contact: `ryanxingql@gmail.com`.
+Current version: [v1]
+
+:e-mail: Feel free to contact: `ryanxingql@gmail.com`.
 
 ## 1. Content
 
