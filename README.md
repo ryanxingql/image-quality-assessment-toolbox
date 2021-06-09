@@ -7,7 +7,8 @@
     - [Evaluate PI, NIQE (PIRM 18' version) and MA](#evaluate-pi-niqe-pirm-18-version-and-ma)
     - [Evaluate LPIPS](#evaluate-lpips)
     - [Evaluate FID](#evaluate-fid)
-  - [3. Licenses](#3-licenses)
+  - [3. Learn More](#3-learn-more)
+  - [4. Licenses](#4-licenses)
 
 Current version: [v1]
 
@@ -62,7 +63,11 @@ Note: the NIQE model (PIRM 18' version) is different from the MATLAB built-in ve
 3. Edit paths in `iqa_fid.py`.
 4. Run `iqa_fid.py`.
 
-## 3. Licenses
+## 3. Learn More
+
+If you want to learn more about this repository, check [here](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/wiki).
+
+## 4. Licenses
 
 Please refer to the official repositories.
 
