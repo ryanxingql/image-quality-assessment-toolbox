@@ -1,0 +1,12 @@
+rbqe_div2k_qf30:
+  src_dir: /home/xql/data/div2k/raw
+  dst_dir: /home/xql/data/div2k/jpeg/qf30
+  tar_dir: /home/xql/data/pycharm/PowerQE/exp/rbqe_div2k_jpeg/enhanced_images_qf30
+
+  if_lpips: True
+  if_fid: True
+  if_psnr: True
+  if_pi: True
+
+  if_src: True  # if evaluate src for NIQE-M, PI, NIQE, MA
+  if_dst: True  # if evaluate dst for all matrices

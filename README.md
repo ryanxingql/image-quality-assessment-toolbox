@@ -1,16 +1,6 @@
 # Image Quality Assessment Toolbox
 
-- [Image Quality Assessment Toolbox](#image-quality-assessment-toolbox)
-  - [1. Content](#1-content)
-  - [2. Command](#2-command)
-    - [Evaluate PSNR, SSIM and NIQE (MATLAB built-in version)](#evaluate-psnr-ssim-and-niqe-matlab-built-in-version)
-    - [Evaluate PI, NIQE (PIRM 18' version) and MA](#evaluate-pi-niqe-pirm-18-version-and-ma)
-    - [Evaluate LPIPS](#evaluate-lpips)
-    - [Evaluate FID](#evaluate-fid)
-  - [3. Learn More](#3-learn-more)
-  - [4. Licenses](#4-licenses)
-
-Current version: [v1]
+Current version: [v2]; archived version: [[v1]](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/tree/1067537dab42509ef4b3cbd55c66a326a1d8dc7a)
 
 :e-mail: Feel free to contact: `ryanxingql@gmail.com`.
 
@@ -28,40 +18,50 @@ Current version: [v1]
 |mean opinion score (MOS)|sub.|Image rating under strict rules and environment.|higher|[0, 100]|[[BT.500]](https://www.itu.int/rec/R-REC-BT.500/)|human|
 |degradation/difference/differential MOS (DMOS)|sub.|Difference between MOS values of reference and distorted images.|lower|[0, 100]|[[src1]](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=762345)  [[src2]](https://videoclarity.com/PDF/WPUnderstandingJNDMOSPSNR.pdf)|human|
 
-## 2. Command
+## 2. Evaluation
 
-Note:
+### Notation
 
-- src: source, e.g., raw images; dst: distorted, e.g., jpeg-compressed images; tar: target, e.g., enhanced compressed images.
-- the list of the evaluated images is based on `tar_dir`.
+- src: source, e.g., raw images.
+- dst: distorted, e.g., jpeg-compressed images.
+- tar: target, e.g., enhanced compressed images.
 
-### Evaluate PSNR, SSIM and NIQE (MATLAB built-in version)
+### Dependency
 
-1. Edit paths in `iqa_psnr_ssim_niqe.m`.
-2. Run `iqa_psnr_ssim_niqe.m`.
+```bash
+conda create -n iqa python=3.7 -y && conda activate iqa
 
-### Evaluate PI, NIQE (PIRM 18' version) and MA
+python -m pip install pyyaml  # main; for PSNR, SSIM and NIQE-M (MATLAB built-in version), it is enough
 
-1. Download `src.zip` at Releases. Unzip it as `./iqa_pi_niqe_ma/src/`.
-2. Edit paths in `iqa_pi_niqe_ma.m`.
-3. Run `iqa_pi_niqe_ma.m`.
+python -m pip install pytorch-fid==0.2.0  # for FID
 
-Note: the NIQE model (PIRM 18' version) is different from the MATLAB built-in version (so as the results).
+# for LPIPS
+python -m pip install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
+python -m pip install opencv-python scipy tqdm lpips==0.1.3
+```
 
-### Evaluate LPIPS
+For PI, NIQE (PIRM 18' version) and MA, download `src.zip` at [Releases](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/releases), and unzip it as `./iqa_pi_niqe_ma/src/`.
 
-1. Create CONDA environment: `conda create -n iqa python=3.7 -y`, and enter this environment: `conda activate iqa`.
-2. Install TORCH: `python -m pip install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html`.
-3. Install other dependecies: `python -m pip install opencv-python scipy tqdm lpips==0.1.3`
-4. Edit paths in `iqa_lpips.py`.
-5. Run `iqa_lpips.py`.
+To run MATLAB scripts in the Python script `main.py`, check [here](https://www.mathworks.com/help/matlab/matlab_external/get-started-with-matlab-engine-for-python.html).
 
-### Evaluate FID
+```bash
+# linux
+conda activate iqa
+cd "matlabroot/extern/engines/python"  # e.g., /home/xql/Matlab/R2019b/extern//engines/python
+python setup.py install
+```
 
-1. Create CONDA environment: `conda create -n iqa python=3.7 -y`, and enter this environment: `conda activate iqa`.
-2. Install dependecies: `pip install pytorch-fid==0.2.0`.
-3. Edit paths in `iqa_fid.py`.
-4. Run `iqa_fid.py`.
+### Run
+
+1. Edit `opt.yml`.
+2. Run: `conda activate iqa && python main.py -opt opt.yml -case rbqe_div2k_qf30`.
+
+You can also run all the scripts separately.
+
+### Note
+
+- The list of the evaluated images is based on `tar_dir`.
+- The NIQE model (PIRM 18' version, denoted by NIQE) is different from the MATLAB built-in version (denoted by NIQE-M); so as the results. We evaluate both of them.
 
 ## 3. Learn More
 
