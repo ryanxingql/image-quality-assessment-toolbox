@@ -120,7 +120,9 @@ function calc_scores(tar_dir, src_dir, dst_dir, csv_file_path, if_src, if_dst)
         if if_src
             if if_dst
                 if ii == 1
-                    fprintf(fid, 'im_name,pi_src,pi_dst,pi_tar,pi_del,niqe_src,niqe_dst,niqe_tar,niqe_del,ma_src,ma_dst,ma_tar,ma_del\n');  % only comma, no blank!
+                    header = 'im_name,pi_src,pi_dst,pi_tar,pi_del,niqe_src,niqe_dst,niqe_tar,niqe_del,ma_src,ma_dst,ma_tar,ma_del\n';  % only comma, no blank!
+                    fprintf(fid, header);
+                    fprintf(header);
                 end
 
                 result = {
@@ -141,7 +143,9 @@ function calc_scores(tar_dir, src_dir, dst_dir, csv_file_path, if_src, if_dst)
 
             else
                 if ii == 1
-                    fprintf(fid, 'im_name,pi_src,pi_tar,niqe_src,niqe_tar,ma_src,ma_tar\n');
+                    header = 'im_name,pi_src,pi_tar,niqe_src,niqe_tar,ma_src,ma_tar\n';
+                    fprintf(fid, header);
+                    fprintf(header);
                 end
 
                 result = {
@@ -164,7 +168,9 @@ function calc_scores(tar_dir, src_dir, dst_dir, csv_file_path, if_src, if_dst)
         else
             if if_dst
                 if ii == 1
-                    fprintf(fid, 'im_name,pi_dst,pi_tar,pi_del,niqe_dst,niqe_tar,niqe_del,ma_dst,ma_tar,ma_del\n');
+                    header = 'im_name,pi_dst,pi_tar,pi_del,niqe_dst,niqe_tar,niqe_del,ma_dst,ma_tar,ma_del\n';
+                    fprintf(fid, header);
+                    fprintf(header);
                 end
 
                 result = {
@@ -185,7 +191,9 @@ function calc_scores(tar_dir, src_dir, dst_dir, csv_file_path, if_src, if_dst)
 
             else
                 if ii == 1
-                    fprintf(fid, 'im_name,pi_tar,niqe_tar,ma_tar\n');
+                    header = 'im_name,pi_tar,niqe_tar,ma_tar\n';
+                    fprintf(fid, header);
+                    fprintf(header);
                 end
 
                 result = {

@@ -64,7 +64,9 @@ function iqa_psnr_ssim_niqe(tag, src_dir, dst_dir, tar_dir, if_src, if_dst)
         if if_src  % only valid for NIQE-M
             if if_dst
                 if iimg == 1
-                    fprintf(fid, 'im_name,psnr_dst,psnr_tar,psnr_del,ssim_dst,ssim_tar,ssim_del,niqe_src,niqe_dst,niqe_tar,niqe_del\n');  % only comma, no blank!
+                    header = 'im_name,psnr_dst,psnr_tar,psnr_del,ssim_dst,ssim_tar,ssim_del,niqe_src,niqe_dst,niqe_tar,niqe_del\n';  % only comma, no blank!
+                    fprintf(fid, header);
+                    fprintf(header);
                 end
 
                 result = [
@@ -85,7 +87,9 @@ function iqa_psnr_ssim_niqe(tag, src_dir, dst_dir, tar_dir, if_src, if_dst)
 
             else
                 if iimg == 1
-                    fprintf(fid, 'im_name,psnr_tar,ssim_tar,niqe_src,niqe_tar\n');
+                    header = 'im_name,psnr_tar,ssim_tar,niqe_src,niqe_tar\n';
+                    fprintf(fid, header);
+                    fprintf(header);
                 end
 
                 result = [
@@ -108,7 +112,9 @@ function iqa_psnr_ssim_niqe(tag, src_dir, dst_dir, tar_dir, if_src, if_dst)
         else
             if if_dst
                 if iimg == 1
-                    fprintf(fid, 'im_name,psnr_dst,psnr_tar,psnr_del,ssim_dst,ssim_tar,ssim_del,niqe_dst,niqe_tar,niqe_del\n');
+                    header = 'im_name,psnr_dst,psnr_tar,psnr_del,ssim_dst,ssim_tar,ssim_del,niqe_dst,niqe_tar,niqe_del\n';
+                    fprintf(fid, header);
+                    fprintf(header);
                 end
 
                 result = [
@@ -129,7 +135,9 @@ function iqa_psnr_ssim_niqe(tag, src_dir, dst_dir, tar_dir, if_src, if_dst)
 
             else
                 if iimg == 1
-                    fprintf(fid, 'im_name,psnr_tar,ssim_tar,niqe_tar\n');
+                    header = 'im_name,psnr_tar,ssim_tar,niqe_tar\n';
+                    fprintf(fid, header);
+                    fprintf(header);
                 end
 
                 result = [
