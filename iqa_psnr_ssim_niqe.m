@@ -150,8 +150,8 @@ function iqa_psnr_ssim_niqe(tag, src_dir, dst_dir, tar_dir, if_src, if_dst)
             end
         end
 
-        result = strjoin(result, ',');
-        fprintf([result, '\n']);
+        result = [strjoin(result, ','), '\n'];
+        fprintf(result);
         fprintf(fid, result);
     end
 

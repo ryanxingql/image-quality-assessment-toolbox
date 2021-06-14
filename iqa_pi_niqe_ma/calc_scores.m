@@ -206,8 +206,8 @@ function calc_scores(tar_dir, src_dir, dst_dir, csv_file_path, if_src, if_dst)
             end
         end
 
-        result = strjoin(result, ',');
-        fprintf([result, '\n']);
+        result = [strjoin(result, ','), '\n'];
+        fprintf(result);
         fprintf(fid, result);
     end
 
