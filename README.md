@@ -20,29 +20,40 @@ Current version: [v2]; archived version: [[v1]](https://github.com/RyanXingQL/Im
 
 ## 2. Evaluation
 
-### Notation
+### 2.1. Notation
 
 - src: source, e.g., raw images.
 - dst: distorted, e.g., jpeg-compressed images.
 - tar: target, e.g., enhanced compressed images.
 
-### Dependency
+### 2.2. Dependency
+
+#### Basis
 
 ```bash
 conda create -n iqa python=3.7 -y && conda activate iqa
 
-python -m pip install pyyaml  # main; for PSNR, SSIM and NIQE-M (MATLAB built-in version), it is enough
+# for iqa_fid.py
+python -m pip install pytorch-fid==0.2.0
 
-python -m pip install pytorch-fid==0.2.0  # for FID
-
-# for LPIPS
+# for iqa_lpips.py
 python -m pip install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
 python -m pip install opencv-python scipy tqdm lpips==0.1.3
 ```
 
-For PI, NIQE (PIRM 18' version) and MA, download `src.zip` at [Releases](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/releases), and unzip it as `./iqa_pi_niqe_ma/src/`.
+For `iqa_psnr_ssim_niqe.m`, no pkgs are needed.
 
-To run MATLAB scripts in the Python script `main.py`, check [here](https://www.mathworks.com/help/matlab/matlab_external/get-started-with-matlab-engine-for-python.html).
+For `iqa_pi_niqe_ma.m`, download `src.zip` at [Releases](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/releases), and unzip it as `./iqa_pi_niqe_ma/src/`.
+
+#### All in one
+
+You can run all the scripts (including MATLAB scripts) in one Python script `main.py`. We first need YAML support:
+
+```bash
+python -m pip install pyyaml
+```
+
+To run MATLAB by Python, we also need MATLAB IO in Python. Check [here](https://www.mathworks.com/help/matlab/matlab_external/get-started-with-matlab-engine-for-python.html). My solution:
 
 ```bash
 # linux
@@ -51,14 +62,14 @@ cd "matlabroot/extern/engines/python"  # e.g., /home/xql/Matlab/R2019b/extern//e
 python setup.py install
 ```
 
-### Run
+### 2.3. Run
 
 1. Edit `opt.yml`.
 2. Run: `conda activate iqa && python main.py -opt opt.yml -case rbqe_div2k_qf30`.
 
-You can also run all the scripts separately.
+You can also run all the IQA scripts separately.
 
-### Note
+### 2.4. Note
 
 - The list of the evaluated images is based on `tar_dir`.
 - The NIQE model (PIRM 18' version, denoted by NIQE) is different from the MATLAB built-in version (denoted by NIQE-M); so as the results. We evaluate both of them.
