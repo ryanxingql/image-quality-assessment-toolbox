@@ -58,7 +58,7 @@ To run MATLAB by Python, we also need MATLAB IO in Python. Check [here](https://
 ```bash
 # linux
 conda activate iqa
-cd "matlabroot/extern/engines/python"  # e.g., /home/xql/Matlab/R2019b/extern//engines/python
+cd "matlabroot/extern/engines/python"  # e.g., /home/xql/Matlab/R2019b/extern/engines/python
 python setup.py install
 ```
 
