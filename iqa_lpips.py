@@ -1,4 +1,3 @@
-import argparse
 from pathlib import Path
 
 import torch
@@ -7,14 +6,12 @@ import numpy as np
 from cv2 import cv2
 
 
-def main(tag, src_dir, dst_dir, tar_dir, if_dst):
+def main(tag, mode, tar_path_lst, src_dir, dst_dir, if_dst):
     src_dir = Path(src_dir).resolve()
-    tar_dir = Path(tar_dir).resolve()
 
     if if_dst:
         dst_dir = Path(dst_dir).resolve()
 
-    tar_path_lst = sorted(tar_dir.glob('*.png'))
     num = len(tar_path_lst)
 
     current_dir = Path(__file__).resolve().parent
@@ -22,9 +19,9 @@ def main(tag, src_dir, dst_dir, tar_dir, if_dst):
     if not log_dir.exists():
         log_dir.mkdir()
     csv_path = log_dir / f'iqa_lpips_{tag}.csv'
-    fp = open(csv_path, 'w')
+    fp = open(csv_path, mode)
 
-    _lst = [src_dir, dst_dir, tar_dir, csv_path] if if_dst else [src_dir, tar_dir, csv_path]
+    _lst = [src_dir, dst_dir, csv_path] if if_dst else [src_dir, csv_path]
     for _str in _lst:
         print(_str)
         fp.write(str(_str) + '\n')
@@ -111,14 +108,3 @@ def main(tag, src_dir, dst_dir, tar_dir, if_dst):
     for idx in range(num):
         fp.write(result_lst[idx] + '\n')
     fp.close()
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--tag', '-tag', type=str)
-    parser.add_argument('--src_dir', '-src_dir', type=str)
-    parser.add_argument('--dst_dir', '-dst_dir', type=str)
-    parser.add_argument('--tar_dir', '-tar_dir', type=str)
-    parser.add_argument('--if_dst', '-if_dst', type=int, default=1)
-    args = parser.parse_args()
-    main(args.tag, args.src_dir, args.dst_dir, args.tar_dir, args.if_dst)

@@ -1,4 +1,4 @@
-function calc_scores(tar_dir, src_dir, dst_dir, csv_file_path, if_src, if_dst)
+function calc_scores(mode, tar_path_lst, src_dir, dst_dir, csv_file_path, if_src, if_dst)
     addpath(genpath(fullfile(pwd, 'iqa_pi_niqe_ma')));  % add folders and their subfolders, compared to iqa_pi_niqe_ma.m
 
     shave_width = 0;  % number of pixels to shave off image borders when calcualting scores
@@ -6,29 +6,29 @@ function calc_scores(tar_dir, src_dir, dst_dir, csv_file_path, if_src, if_dst)
 
     %% log file
 
-    fid = fopen(csv_file_path,'w');
+    fid = fopen(csv_file_path, mode);
     if fid < 0
         errordlg('File creation failed', 'Error');
     end
 
     if if_src
         if if_dst
-            for str_ = {src_dir, dst_dir, tar_dir, csv_file_path}
-                fprintf(fid, [str_{1}, '\n']);
+            for str_ = {src_dir, dst_dir, csv_file_path}
+                fprintf(fid, [str_{:}, '\n']);
             end
         else
-            for str_ = {src_dir, tar_dir, csv_file_path}
-                fprintf(fid, [str_{1}, '\n']);
+            for str_ = {src_dir, csv_file_path}
+                fprintf(fid, [str_{:}, '\n']);
             end
         end
     else
         if if_dst
-            for str_ = {dst_dir, tar_dir, csv_file_path}
-                fprintf(fid, [str_{1}, '\n']);
+            for str_ = {dst_dir, csv_file_path}
+                fprintf(fid, [str_{:}, '\n']);
             end
         else
-            for str_ = {tar_dir, csv_file_path}
-                fprintf(fid, [str_{1}, '\n']);
+            for str_ = {csv_file_path}
+                fprintf(fid, [str_{:}, '\n']);
             end
         end
     end
@@ -43,8 +43,7 @@ function calc_scores(tar_dir, src_dir, dst_dir, csv_file_path, if_src, if_dst)
 
     %% Reading file list
 
-    file_list = dir([tar_dir,'/*.png']);
-    im_num = length(file_list);
+    im_num = length(tar_path_lst);
 
     %% Calculating scores
 
@@ -76,8 +75,10 @@ function calc_scores(tar_dir, src_dir, dst_dir, csv_file_path, if_src, if_dst)
 
         % Reading and converting images
 
-        im_name = file_list(ii).name;
-        input_image_path = fullfile(tar_dir, im_name);
+        input_image_path = tar_path_lst{ii};
+        [~, img_stem, ext] = fileparts(input_image_path);
+        im_name = append(img_stem, ext);
+
         input_image = convert_shave_image(imread(input_image_path),shave_width);
 
         if if_src
@@ -115,8 +116,6 @@ function calc_scores(tar_dir, src_dir, dst_dir, csv_file_path, if_src, if_dst)
             pi_delta = [pi_delta; pi_enh - pi_cmp];
         end
 
-        img_stem = strsplit(im_name, '.');
-
         if if_src
             if if_dst
                 if ii == 1
@@ -125,20 +124,16 @@ function calc_scores(tar_dir, src_dir, dst_dir, csv_file_path, if_src, if_dst)
                     fprintf(header);
                 end
 
-                result = {
-                    sprintf('%s', img_stem{1}), ...
-                    sprintf('%.3f', pi_raw(end)), sprintf('%.3f', pi_cmp(end)), sprintf('%.3f', pi_enh(end)), sprintf('%.3f', pi_delta(end)), ...
-                    sprintf('%.3f', niqe_raw(end)), sprintf('%.3f', niqe_cmp(end)), sprintf('%.3f', niqe_enh(end)), sprintf('%.3f', niqe_delta(end)), ...
-                    sprintf('%.3f', ma_raw(end)), sprintf('%.3f', ma_cmp(end)), sprintf('%.3f', ma_enh(end)), sprintf('%.3f', ma_delta(end)), ...
-                };
+                result = [img_stem, ...
+                    sprintf(',%.3f', pi_raw(end)), sprintf(',%.3f', pi_cmp(end)), sprintf(',%.3f', pi_enh(end)), sprintf(',%.3f', pi_delta(end)), ...
+                    sprintf(',%.3f', niqe_raw(end)), sprintf(',%.3f', niqe_cmp(end)), sprintf(',%.3f', niqe_enh(end)), sprintf(',%.3f', niqe_delta(end)), ...
+                    sprintf(',%.3f', ma_raw(end)), sprintf(',%.3f', ma_cmp(end)), sprintf(',%.3f', ma_enh(end)), sprintf(',%.3f', ma_delta(end))];
 
                 if ii == im_num
-                    result_ave = {
-                        'ave.', ...
-                        sprintf('%.3f', mean(pi_raw)), sprintf('%.3f', mean(pi_cmp)), sprintf('%.3f', mean(pi_enh)), sprintf('%.3f', mean(pi_delta)), ...
-                        sprintf('%.3f', mean(niqe_raw)), sprintf('%.3f', mean(niqe_cmp)), sprintf('%.3f', mean(niqe_enh)), sprintf('%.3f', mean(niqe_delta)), ...
-                        sprintf('%.3f', mean(ma_raw)), sprintf('%.3f', mean(ma_cmp)), sprintf('%.3f', mean(ma_enh)), sprintf('%.3f', mean(ma_delta)), ...
-                    };
+                    result_ave = ['ave.', ...
+                        sprintf(',%.3f', mean(pi_raw)), sprintf(',%.3f', mean(pi_cmp)), sprintf(',%.3f', mean(pi_enh)), sprintf(',%.3f', mean(pi_delta)), ...
+                        sprintf(',%.3f', mean(niqe_raw)), sprintf(',%.3f', mean(niqe_cmp)), sprintf(',%.3f', mean(niqe_enh)), sprintf(',%.3f', mean(niqe_delta)), ...
+                        sprintf(',%.3f', mean(ma_raw)), sprintf(',%.3f', mean(ma_cmp)), sprintf(',%.3f', mean(ma_enh)), sprintf(',%.3f', mean(ma_delta))];
                 end
 
             else
@@ -148,20 +143,16 @@ function calc_scores(tar_dir, src_dir, dst_dir, csv_file_path, if_src, if_dst)
                     fprintf(header);
                 end
 
-                result = {
-                    sprintf('%s', img_stem{1}), ...
-                    sprintf('%.3f', pi_raw(end)), sprintf('%.3f', pi_enh(end)), ...
-                    sprintf('%.3f', niqe_raw(end)), sprintf('%.3f', niqe_enh(end)), ...
-                    sprintf('%.3f', ma_raw(end)), sprintf('%.3f', ma_enh(end)), ...
-                };
+                result = [img_stem, ...
+                    sprintf(',%.3f', pi_raw(end)), sprintf(',%.3f', pi_enh(end)), ...
+                    sprintf(',%.3f', niqe_raw(end)), sprintf(',%.3f', niqe_enh(end)), ...
+                    sprintf(',%.3f', ma_raw(end)), sprintf(',%.3f', ma_enh(end))];
 
                 if ii == im_num
-                    result_ave = {
-                        'ave.', ...
-                        sprintf('%.3f', mean(pi_raw)), sprintf('%.3f', mean(pi_enh)), ...
-                        sprintf('%.3f', mean(niqe_raw)), sprintf('%.3f', mean(niqe_enh)), ...
-                        sprintf('%.3f', mean(ma_raw)), sprintf('%.3f', mean(ma_enh)), ...
-                    };
+                    result_ave = ['ave.', ...
+                        sprintf(',%.3f', mean(pi_raw)), sprintf(',%.3f', mean(pi_enh)), ...
+                        sprintf(',%.3f', mean(niqe_raw)), sprintf(',%.3f', mean(niqe_enh)), ...
+                        sprintf(',%.3f', mean(ma_raw)), sprintf(',%.3f', mean(ma_enh))];
                 end
             end
 
@@ -173,20 +164,16 @@ function calc_scores(tar_dir, src_dir, dst_dir, csv_file_path, if_src, if_dst)
                     fprintf(header);
                 end
 
-                result = {
-                    sprintf('%s', img_stem{1}), ...
-                    sprintf('%.3f', pi_cmp(end)), sprintf('%.3f', pi_enh(end)), sprintf('%.3f', pi_delta(end)), ...
-                    sprintf('%.3f', niqe_cmp(end)), sprintf('%.3f', niqe_enh(end)), sprintf('%.3f', niqe_delta(end)), ...
-                    sprintf('%.3f', ma_cmp(end)), sprintf('%.3f', ma_enh(end)), sprintf('%.3f', ma_delta(end)), ...
-                };
+                result = [img_stem, ...
+                    sprintf(',%.3f', pi_cmp(end)), sprintf(',%.3f', pi_enh(end)), sprintf(',%.3f', pi_delta(end)), ...
+                    sprintf(',%.3f', niqe_cmp(end)), sprintf(',%.3f', niqe_enh(end)), sprintf(',%.3f', niqe_delta(end)), ...
+                    sprintf(',%.3f', ma_cmp(end)), sprintf(',%.3f', ma_enh(end)), sprintf(',%.3f', ma_delta(end))];
 
                 if ii == im_num
-                    result_ave = {
-                        'ave.', ...
-                        sprintf('%.3f', mean(pi_cmp)), sprintf('%.3f', mean(pi_enh)), sprintf('%.3f', mean(pi_delta)), ...
-                        sprintf('%.3f', mean(niqe_cmp)), sprintf('%.3f', mean(niqe_enh)), sprintf('%.3f', mean(niqe_delta)), ...
-                        sprintf('%.3f', mean(ma_cmp)), sprintf('%.3f', mean(ma_enh)), sprintf('%.3f', mean(ma_delta)), ...
-                    };
+                    result_ave = ['ave.', ...
+                        sprintf(',%.3f', mean(pi_cmp)), sprintf(',%.3f', mean(pi_enh)), sprintf(',%.3f', mean(pi_delta)), ...
+                        sprintf(',%.3f', mean(niqe_cmp)), sprintf(',%.3f', mean(niqe_enh)), sprintf(',%.3f', mean(niqe_delta)), ...
+                        sprintf(',%.3f', mean(ma_cmp)), sprintf(',%.3f', mean(ma_enh)), sprintf(',%.3f', mean(ma_delta))];
                 end
 
             else
@@ -196,31 +183,26 @@ function calc_scores(tar_dir, src_dir, dst_dir, csv_file_path, if_src, if_dst)
                     fprintf(header);
                 end
 
-                result = {
-                    sprintf('%s', img_stem{1}), ...
-                    sprintf('%.3f', pi_enh(end)), ...
-                    sprintf('%.3f', niqe_enh(end)), ...
-                    sprintf('%.3f', ma_enh(end)), ...
-                };
+                result = [img_stem, ...
+                    sprintf(',%.3f', pi_enh(end)), ...
+                    sprintf(',%.3f', niqe_enh(end)), ...
+                    sprintf(',%.3f', ma_enh(end))];
 
                 if ii == im_num
-                    result_ave = {
-                        'ave.', ...
-                        sprintf('%.3f', mean(pi_enh)), ...
-                        sprintf('%.3f', mean(niqe_enh)), ...
-                        sprintf('%.3f', mean(ma_enh)), ...
-                    };
+                    result_ave = ['ave.', ...
+                        sprintf(',%.3f', mean(pi_enh)), ...
+                        sprintf(',%.3f', mean(niqe_enh)), ...
+                        sprintf(',%.3f', mean(ma_enh))];
                 end
             end
         end
 
-        result = [strjoin(result, ','), '\n'];
+        result = [result, '\n'];
         fprintf(result);
         fprintf(fid, result);
     end
 
-    result = strjoin(result_ave, ',');
-    fprintf(fid, result);
+    fprintf(fid, result_ave);
     fclose(fid);
-    fprintf([result, '\n']);
+    fprintf([result_ave, '\n']);
 end

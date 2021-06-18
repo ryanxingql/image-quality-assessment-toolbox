@@ -1,23 +1,22 @@
-function iqa_psnr_ssim_niqe(tag, src_dir, dst_dir, tar_dir, if_src, if_dst)
+function iqa_psnr_ssim_niqe(tag, mode, tar_path_lst, src_dir, dst_dir, if_src, if_dst)
     csv_file_name = ['iqa_psnr_ssim_niqe_', tag, '.csv'];
 
     save_dir = fullfile(pwd, 'logs');
     mkdir(save_dir);
     csv_file_path = fullfile(save_dir, csv_file_name);
 
-    fid = fopen(csv_file_path, 'w');
+    fid = fopen(csv_file_path, mode);
 
     if if_dst
-        lst_ = {src_dir, tar_dir, csv_file_path};
+        lst_ = {src_dir, csv_file_path};
     else
-        lst_ = {src_dir, dst_dir, tar_dir, csv_file_path};
+        lst_ = {src_dir, dst_dir, csv_file_path};
     end
     for str_ = lst_
-        fprintf(fid, [str_{1}, '\n']);
+        fprintf(fid, [str_{:}, '\n']);
     end
 
-    tar_set = {dir(fullfile(tar_dir, '*.png')).name};
-    [~, nimg] = size(tar_set);
+    [~, nimg] = size(tar_path_lst);
 
     psnr_dst = [];
     psnr_tar = [];
@@ -31,13 +30,15 @@ function iqa_psnr_ssim_niqe(tag, src_dir, dst_dir, tar_dir, if_src, if_dst)
     niqe_delta = [];
 
     for iimg = 1:nimg
-        img_name = tar_set(iimg);
-        img_stem = strsplit(img_name{1}, '.');
+        tar_path = tar_path_lst{iimg};
+
+        [~, img_stem, ext] = fileparts(tar_path);
+        img_name = append(img_stem, ext);
 
         src_path = fullfile(src_dir, img_name);
-        src = imread(src_path{1});
-        tar_path = fullfile(tar_dir, img_name);
-        tar = imread(tar_path{1});
+        src = imread(src_path);
+
+        tar = imread(tar_path);
 
         psnr_tar = [psnr_tar; psnr(tar, src)];
         ssim_tar = [ssim_tar; ssim(tar, src)];
@@ -49,7 +50,7 @@ function iqa_psnr_ssim_niqe(tag, src_dir, dst_dir, tar_dir, if_src, if_dst)
 
         if if_dst
             dst_path = fullfile(dst_dir, img_name);
-            dst = imread(dst_path{1});
+            dst = imread(dst_path);
 
             psnr_dst = [psnr_dst; psnr(dst, src)];
             psnr_delta = [psnr_delta; psnr_tar - psnr_dst];
@@ -69,20 +70,16 @@ function iqa_psnr_ssim_niqe(tag, src_dir, dst_dir, tar_dir, if_src, if_dst)
                     fprintf(header);
                 end
 
-                result = [
-                    img_stem(1), ...
-                    sprintf('%.3f', psnr_dst(end)), sprintf('%.3f', psnr_tar(end)), sprintf('%.3f', psnr_delta(end)), ...
-                    sprintf('%.3f', ssim_dst(end)), sprintf('%.3f', ssim_tar(end)), sprintf('%.3f', ssim_delta(end)), ...
-                    sprintf('%.3f', niqe_src(end)), sprintf('%.3f', niqe_dst(end)), sprintf('%.3f', niqe_tar(end)), sprintf('%.3f', niqe_delta(end)), ...
-                ];
+                result = [img_stem, ...
+                    sprintf(',%.3f', psnr_dst(end)), sprintf(',%.3f', psnr_tar(end)), sprintf(',%.3f', psnr_delta(end)), ...
+                    sprintf(',%.3f', ssim_dst(end)), sprintf(',%.3f', ssim_tar(end)), sprintf(',%.3f', ssim_delta(end)), ...
+                    sprintf(',%.3f', niqe_src(end)), sprintf(',%.3f', niqe_dst(end)), sprintf(',%.3f', niqe_tar(end)), sprintf(',%.3f', niqe_delta(end))];
 
                 if iimg == nimg
-                    result_ave = [
-                        {'ave.'}, ...
-                        sprintf('%.3f', mean(psnr_dst)), sprintf('%.3f', mean(psnr_tar)), sprintf('%.3f', mean(psnr_delta)), ...
-                        sprintf('%.3f', mean(ssim_dst)), sprintf('%.3f', mean(ssim_tar)), sprintf('%.3f', mean(ssim_delta)), ...
-                        sprintf('%.3f', mean(niqe_src)), sprintf('%.3f', mean(niqe_dst)), sprintf('%.3f', mean(niqe_tar)), sprintf('%.3f', mean(niqe_delta)), ...
-                    ];
+                    result_ave = ['ave.', ...
+                        sprintf(',%.3f', mean(psnr_dst)), sprintf(',%.3f', mean(psnr_tar)), sprintf(',%.3f', mean(psnr_delta)), ...
+                        sprintf(',%.3f', mean(ssim_dst)), sprintf(',%.3f', mean(ssim_tar)), sprintf(',%.3f', mean(ssim_delta)), ...
+                        sprintf(',%.3f', mean(niqe_src)), sprintf(',%.3f', mean(niqe_dst)), sprintf(',%.3f', mean(niqe_tar)), sprintf(',%.3f', mean(niqe_delta))];
                 end
 
             else
@@ -92,20 +89,16 @@ function iqa_psnr_ssim_niqe(tag, src_dir, dst_dir, tar_dir, if_src, if_dst)
                     fprintf(header);
                 end
 
-                result = [
-                    img_stem(1), ...
-                    sprintf('%.3f', psnr_tar(end)), ...
-                    sprintf('%.3f', ssim_tar(end)), ...
-                    sprintf('%.3f', niqe_src(end)), sprintf('%.3f', niqe_tar(end)), ...
-                ];
+                result = [img_stem, ...
+                    sprintf(',%.3f', psnr_tar(end)), ...
+                    sprintf(',%.3f', ssim_tar(end)), ...
+                    sprintf(',%.3f', niqe_src(end)), sprintf(',%.3f', niqe_tar(end))];
 
                 if iimg == nimg
-                    result_ave = [
-                        {'ave.'}, ...
-                        sprintf('%.3f', mean(psnr_tar)), ...
-                        sprintf('%.3f', mean(ssim_tar)), ...
-                        sprintf('%.3f', mean(niqe_src)), sprintf('%.3f', mean(niqe_tar)), ...
-                    ];
+                    result_ave = ['ave.', ...
+                        sprintf(',%.3f', mean(psnr_tar)), ...
+                        sprintf(',%.3f', mean(ssim_tar)), ...
+                        sprintf(',%.3f', mean(niqe_src)), sprintf(',%.3f', mean(niqe_tar))];
                 end
             end
 
@@ -117,20 +110,16 @@ function iqa_psnr_ssim_niqe(tag, src_dir, dst_dir, tar_dir, if_src, if_dst)
                     fprintf(header);
                 end
 
-                result = [
-                    img_stem(1), ...
-                    sprintf('%.3f', psnr_dst(end)), sprintf('%.3f', psnr_tar(end)), sprintf('%.3f', psnr_delta(end)), ...
-                    sprintf('%.3f', ssim_dst(end)), sprintf('%.3f', ssim_tar(end)), sprintf('%.3f', ssim_delta(end)), ...
-                    sprintf('%.3f', niqe_dst(end)), sprintf('%.3f', niqe_tar(end)), sprintf('%.3f', niqe_delta(end)), ...
-                ];
+                result = [img_stem, ...
+                    sprintf(',%.3f', psnr_dst(end)), sprintf(',%.3f', psnr_tar(end)), sprintf(',%.3f', psnr_delta(end)), ...
+                    sprintf(',%.3f', ssim_dst(end)), sprintf(',%.3f', ssim_tar(end)), sprintf(',%.3f', ssim_delta(end)), ...
+                    sprintf(',%.3f', niqe_dst(end)), sprintf(',%.3f', niqe_tar(end)), sprintf(',%.3f', niqe_delta(end))];
 
                 if iimg == nimg
-                    result_ave = [
-                        {'ave.'}, ...
-                        sprintf('%.3f', mean(psnr_dst)), sprintf('%.3f', mean(psnr_tar)), sprintf('%.3f', mean(psnr_delta)), ...
-                        sprintf('%.3f', mean(ssim_dst)), sprintf('%.3f', mean(ssim_tar)), sprintf('%.3f', mean(ssim_delta)), ...
-                        sprintf('%.3f', mean(niqe_dst)), sprintf('%.3f', mean(niqe_tar)), sprintf('%.3f', mean(niqe_delta)), ...
-                    ];
+                    result_ave = ['ave.', ...
+                        sprintf(',%.3f', mean(psnr_dst)), sprintf(',%.3f', mean(psnr_tar)), sprintf(',%.3f', mean(psnr_delta)), ...
+                        sprintf(',%.3f', mean(ssim_dst)), sprintf(',%.3f', mean(ssim_tar)), sprintf(',%.3f', mean(ssim_delta)), ...
+                        sprintf(',%.3f', mean(niqe_dst)), sprintf(',%.3f', mean(niqe_tar)), sprintf(',%.3f', mean(niqe_delta))];
                 end
 
             else
@@ -140,31 +129,26 @@ function iqa_psnr_ssim_niqe(tag, src_dir, dst_dir, tar_dir, if_src, if_dst)
                     fprintf(header);
                 end
 
-                result = [
-                    img_stem(1), ...
-                    sprintf('%.3f', psnr_tar(end)), ...
-                    sprintf('%.3f', ssim_tar(end)), ...
-                    sprintf('%.3f', niqe_tar(end)), ...
-                ];
+                result = [img_stem, ...
+                    sprintf(',%.3f', psnr_tar(end)), ...
+                    sprintf(',%.3f', ssim_tar(end)), ...
+                    sprintf(',%.3f', niqe_tar(end))];
 
                 if iimg == nimg
-                    result_ave = [
-                        {'ave.'}, ...
-                        sprintf('%.3f', mean(psnr_tar)), ...
-                        sprintf('%.3f', mean(ssim_tar)), ...
-                        sprintf('%.3f', mean(niqe_tar)), ...
-                    ];
+                    result_ave = ['ave.', ...
+                        sprintf(',%.3f', mean(psnr_tar)), ...
+                        sprintf(',%.3f', mean(ssim_tar)), ...
+                        sprintf(',%.3f', mean(niqe_tar))];
                 end
             end
         end
 
-        result = [strjoin(result, ','), '\n'];
+        result = [result, '\n'];
         fprintf(result);
         fprintf(fid, result);
     end
 
-    result = strjoin(result_ave, ',');
-    fprintf(fid, result);
+    fprintf(fid, result_ave);
     fclose(fid);
-    fprintf([result, '\n']);
+    fprintf([result_ave, '\n']);
 end

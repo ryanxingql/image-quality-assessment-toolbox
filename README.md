@@ -57,15 +57,14 @@ To run MATLAB by Python, we also need MATLAB IO in Python. Check [here](https://
 
 ```bash
 # linux
-conda activate iqa
-cd "matlabroot/extern/engines/python"  # e.g., /home/xql/Matlab/R2019b/extern/engines/python
-python setup.py install
+cd "matlabroot/extern/engines/python"  # e.g., ~/Matlab/R2019b/extern/engines/python
+conda activate iqa && python setup.py install
 ```
 
 ### 2.3. Run
 
 1. Edit `opt.yml`.
-2. Run: `conda activate iqa && python main.py -opt opt.yml -case rbqe_div2k_qf30`.
+2. Run: `conda activate iqa && python main.py -case div2k_qf10 [-opt opt.yml -mode a -if_src true -if_dst true -start_idx 0 -max_num -1]`.
 
 You can also run all the IQA scripts separately.
 
