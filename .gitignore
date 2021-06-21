@@ -2,7 +2,6 @@
 .idea/
 
 __pycache__/
-tmp*
 
 logs/
-iqa_pi_niqe_ma/src
+iqa_pi_niqe_ma/src/

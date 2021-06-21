@@ -14,7 +14,7 @@ Current version: [v2]; archived version: [[v1]](https://github.com/RyanXingQL/Im
 |Ma *et al.* (MA)|NR|Joint difference in DCT, wavelet and PCA domains. Very slow!|higher|[0, 10]|[[official repo]](https://github.com/chaoma99/sr-metric) [[paper]](https://arxiv.org/abs/1612.05890)|MATLAB|
 |perceptual index (PI)|NR|0.5 * ((10 - MA) + NIQE). Very slow due to MA!|lower|[0, ?)|[[official repo]](https://github.com/roimehrez/PIRM2018) [[paper]](https://arxiv.org/abs/1809.07517)|MATLAB|
 |learned perceptual image patch similarity (LPIPS)|FR|L2 distance between AlexNet/SqueezeNet/VGG activations of reference and distorted images. trainable.|lower|[0, ?)|[[official repo]](https://github.com/richzhang/PerceptualSimilarity)|PYTORCH|
-|Fréchet inception distance (FID)|FR|Wasserstein-2 distance between two vectors of InceptionV3 activations (fed with reference and distorted images).|lower|[0, ?)|[[official repo]](https://github.com/mseitzer/pytorch-fid) [[paper]](https://arxiv.org/abs/1706.08500)|PYTORCH|
+|Fréchet inception distance (FID)|FR|Wasserstein-2 distance between two vectors of InceptionV3 activations (fed with reference and distorted images).|lower|[0, ?)|[[cleanfid repo]](https://github.com/GaParmar/clean-fid/tree/ced1e5657d4d9a9cf79358445a0bfcc3bb4d44ff) [[paper]](https://arxiv.org/abs/1706.08500)|PYTORCH|
 |mean opinion score (MOS)|sub.|Image rating under strict rules and environment.|higher|[0, 100]|[[BT.500]](https://www.itu.int/rec/R-REC-BT.500/)|human|
 |degradation/difference/differential MOS (DMOS)|sub.|Difference between MOS values of reference and distorted images.|lower|[0, 100]|[[src1]](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=762345)  [[src2]](https://videoclarity.com/PDF/WPUnderstandingJNDMOSPSNR.pdf)|human|
 
@@ -32,16 +32,17 @@ Current version: [v2]; archived version: [[v1]](https://github.com/RyanXingQL/Im
 
 ```bash
 conda create -n iqa python=3.7 -y && conda activate iqa
-
-# for iqa_fid.py
-python -m pip install pytorch-fid==0.2.0
-
-# for iqa_lpips.py
 python -m pip install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
-python -m pip install opencv-python scipy tqdm lpips==0.1.3
+python -m pip install opencv-python scipy tqdm
 ```
 
-For `iqa_psnr_ssim_niqe.m`, no pkgs are needed.
+```bash
+# for iqa
+python -m pip install lpips==0.1.3
+
+# for fid
+python -m pip install requests==2.25.1
+```
 
 For `iqa_pi_niqe_ma.m`, download `src.zip` at [Releases](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/releases), and unzip it as `./iqa_pi_niqe_ma/src/`.
 
@@ -72,6 +73,7 @@ You can also run all the IQA scripts separately.
 
 - The list of the evaluated images is based on `tar_dir`.
 - The NIQE model (PIRM 18' version, denoted by NIQE) is different from the MATLAB built-in version (denoted by NIQE-M); so as the results. We evaluate both of them.
+- We do not evaluate the FID score between two images, but two folders of images instead. Therefore, FID returns only one score for all images. Check [here](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/wiki/Do-Not-Evaluate-FID-between-Two-Images).
 
 ## 3. Learn More
 

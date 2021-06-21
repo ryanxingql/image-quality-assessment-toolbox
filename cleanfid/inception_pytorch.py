@@ -1,3 +1,6 @@
+"""
+File from: https://github.com/mseitzer/pytorch-fid
+"""
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -35,7 +38,6 @@ class InceptionV3(nn.Module):
                  requires_grad=False,
                  use_fid_inception=True):
         """Build pretrained InceptionV3
-
         Parameters
         ----------
         output_blocks : list of int
@@ -128,13 +130,11 @@ class InceptionV3(nn.Module):
 
     def forward(self, inp):
         """Get Inception feature maps
-
         Parameters
         ----------
         inp : torch.autograd.Variable
             Input tensor of shape Bx3xHxW. Values are expected to be in
             range (0, 1)
-
         Returns
         -------
         List of torch.autograd.Variable, corresponding to the selected output
@@ -144,6 +144,7 @@ class InceptionV3(nn.Module):
         x = inp
 
         if self.resize_input:
+            raise ValueError("should not resize here")
             x = F.interpolate(x,
                               size=(299, 299),
                               mode='bilinear',
@@ -165,7 +166,6 @@ class InceptionV3(nn.Module):
 
 def _inception_v3(*args, **kwargs):
     """Wraps `torchvision.models.inception_v3`
-
     Skips default weight inititialization if supported by torchvision version.
     See https://github.com/mseitzer/pytorch-fid/issues/28.
     """
@@ -183,10 +183,8 @@ def _inception_v3(*args, **kwargs):
 
 def fid_inception_v3():
     """Build pretrained Inception model for FID computation
-
     The Inception model for FID computation uses a different set of weights
     and has a slightly different structure than torchvision's Inception.
-
     This method first constructs torchvision's Inception and then patches the
     necessary parts that are different in the FID Inception model.
     """
