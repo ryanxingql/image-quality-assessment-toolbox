@@ -23,8 +23,6 @@ def main(tag, mode, tar_path_lst, src_dir, dst_dir, if_dst):
         print(_str)
         fp.write(str(_str) + '\n')
 
-    fp.write('dst,tar,del\n')
-
     src_path_lst = [src_dir / tar_path.name for tar_path in tar_path_lst]
     tar_score = fid.compute_fid(tar_path_lst, src_path_lst)
 
@@ -33,9 +31,11 @@ def main(tag, mode, tar_path_lst, src_dir, dst_dir, if_dst):
         dst_score = fid.compute_fid(dst_path_lst, src_path_lst)
         del_score = tar_score - dst_score
         result = f'{dst_score:.3f},{tar_score:.3f},{del_score:.3f}'
+        fp.write('dst,tar,del\n')
 
     else:
         result = f'{tar_score:.3f}'
+        fp.write('tar\n')
 
     print(result)
     fp.write(result)
