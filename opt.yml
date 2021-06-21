@@ -3,7 +3,7 @@ div2k_qf10:
   dst_dir: ~/data/div2k/jpeg/qf10
   tar_dir: ~/data/div2k/jpeg/qf10
 
-  if_lpips: 
+  if_lpips: True
   if_fid: True
   if_psnr: True
   if_pi: True
