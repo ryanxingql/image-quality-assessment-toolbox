@@ -5,6 +5,8 @@ import lpips
 import numpy as np
 from cv2 import cv2
 
+if_cuda = True
+
 
 def main(tag, mode, tar_path_lst, src_dir, dst_dir, if_dst):
     src_dir = Path(src_dir).resolve()
@@ -37,11 +39,11 @@ def main(tag, mode, tar_path_lst, src_dir, dst_dir, if_dst):
             super().__init__()
 
             self.lpips_fn = lpips.LPIPS(net=net, spatial=if_spatial)
+            self.if_cuda = if_cuda
             if if_cuda:
                 self.lpips_fn.cuda()
 
-        @staticmethod
-        def _preprocess(inp, mode):
+        def _preprocess(self, inp, mode):
             out = None
             if mode == 'im':
                 im = inp[:, :, ::-1]  # (H W BGR) -> (H W RGB)
@@ -51,6 +53,9 @@ def main(tag, mode, tar_path_lst, src_dir, dst_dir, if_dst):
                 out = torch.Tensor(im)
             elif mode == 'tensor':
                 out = inp * 2. - 1.
+
+            if self.if_cuda:
+                out = out.cuda()
             return out
 
         def forward(self, ref, im):
@@ -61,7 +66,7 @@ def main(tag, mode, tar_path_lst, src_dir, dst_dir, if_dst):
             return lpips_score.item()
 
 
-    lpips_forward = LPIPS().forward
+    lpips_forward = LPIPS(if_cuda=if_cuda).forward
 
     im_name_lst = []
     dst_lst = []
