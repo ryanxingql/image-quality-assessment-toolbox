@@ -65,7 +65,7 @@ conda activate iqa && python setup.py install
 ### 2.3. Run
 
 1. Edit `opt.yml`.
-2. Run: `conda activate iqa && python main.py -case div2k_qf10 [-opt opt.yml -mode a -if_src true -if_dst true -start_idx 0 -max_num -1]`.
+2. Run: `conda activate iqa && CUDA_VISIBLE_DEVICES=0 python main.py -case div2k_qf10 [-opt opt.yml -mode a -if_src true -if_dst true -start_idx 0 -max_num -1]`.
 
 You can also run all the IQA scripts separately.
 
