@@ -47,7 +47,7 @@ class InceptionV3W(nn.Module):
             # apply normalization
             x1 = x - 128
             x2 = x1 / 128
-            features = self.layers.forward(x2, ).view((bs, 2048))
+            features = self.layers.forward(x2).view((bs, 2048))
         return features
 
 
