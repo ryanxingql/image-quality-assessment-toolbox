@@ -90,7 +90,7 @@ If you find this repository helpful, you may cite:
   author = {Qunliang Xing},
   title = {Image Quality Assessment Toolbox},
   howpublished = "\url{https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox}",
-  year = {2021}, 
+  year = {2021},
   note = "[Online; accessed 11-April-2021]"
 }
 ```
