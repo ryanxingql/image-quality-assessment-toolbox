@@ -2,7 +2,6 @@ import yaml
 import argparse
 import matlab.engine
 from pathlib import Path
-
 import iqa_lpips
 import iqa_fid
 
@@ -22,7 +21,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--opt', '-opt', type=str, default='opt.yml', help='path to option YAML file.')
 parser.add_argument('--case', '-case', type=str, default='rbqe_div2k_qf30', help='specified case in YML.')
 parser.add_argument('--mode', '-mode', type=str, default='a', help='add (a) or write (w).')
-parser.add_argument('--if_src', '-if_src', type=_str2bool, default=False, help='if evaluate src for NIQE-M, PI, NIQE, MA.')
+parser.add_argument('--if_src', '-if_src', type=_str2bool, default=False,
+                    help='if evaluate src for NIQE-M, PI, NIQE, MA.')
 parser.add_argument('--if_dst', '-if_dst', type=_str2bool, default=False, help='if evaluate dst for all matrices.')
 parser.add_argument('--start_idx', '-start_idx', type=int, default=0, help='start from the idx-th image.')
 parser.add_argument('--max_num', '-max_num', type=int, default=-1, help='total num of images.')
