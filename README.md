@@ -43,7 +43,7 @@ conda activate iqa
 python -m pip install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
 python -m pip install opencv-python scipy tqdm
 
-# for iqa
+# for lpips
 python -m pip install lpips==0.1.3
 
 # for fid
@@ -53,10 +53,9 @@ python -m pip install requests==2.25.1
 If you want to evaluate PSNR, SSIM, NIQE-M, PI, NIQE and MA using MATLAB, you should install MATLAB IO for PYTHON. Check [here](https://www.mathworks.com/help/matlab/matlab_external/get-started-with-matlab-engine-for-python.html). My solution:
 
 ```bash
-conda activate iqa
+# first install MATLAB
 
 # linux
-# first install MATLAB
 cd "matlabroot/extern/engines/python"  # e.g., ~/Matlab/R2019b/extern/engines/python
 conda activate iqa && python setup.py install
 ```
