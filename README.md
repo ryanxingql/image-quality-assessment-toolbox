@@ -25,18 +25,24 @@ Current version: [v2]; archived version: [[v1]](https://github.com/RyanXingQL/Im
 - src: source, e.g., raw images.
 - dst: distorted, e.g., jpeg-compressed images.
 - tar: target, e.g., enhanced compressed images.
+- The NIQE model (PIRM 18' version, denoted by NIQE) is different from the MATLAB built-in version (denoted by NIQE-M); so as the results.
 
 ### 2.2. Dependency
 
-#### Basis
-
 ```bash
 conda create -n iqa python=3.7 -y && conda activate iqa
-python -m pip install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
-python -m pip install opencv-python scipy tqdm
+python -m pip install pyyaml
 ```
 
+If you want to evaluate LPIPS and FID using PYTORCH, the following packages are needed:
+
 ```bash
+conda activate iqa
+
+# basis
+python -m pip install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
+python -m pip install opencv-python scipy tqdm
+
 # for iqa
 python -m pip install lpips==0.1.3
 
@@ -44,35 +50,27 @@ python -m pip install lpips==0.1.3
 python -m pip install requests==2.25.1
 ```
 
-For `iqa_pi_niqe_ma.m`, download `src.zip` at [Releases](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/releases), and unzip it as `./iqa_pi_niqe_ma/src/`.
-
-#### All in one
-
-You can run all the scripts (including MATLAB scripts) in one Python script `main.py`. We first need YAML support:
+If you want to evaluate PSNR, SSIM, NIQE-M, PI, NIQE and MA using MATLAB, you should install MATLAB IO for PYTHON. Check [here](https://www.mathworks.com/help/matlab/matlab_external/get-started-with-matlab-engine-for-python.html). My solution:
 
 ```bash
-python -m pip install pyyaml
-```
+conda activate iqa
 
-To run MATLAB by Python, we also need MATLAB IO in Python. Check [here](https://www.mathworks.com/help/matlab/matlab_external/get-started-with-matlab-engine-for-python.html). My solution:
-
-```bash
 # linux
+# first install MATLAB
 cd "matlabroot/extern/engines/python"  # e.g., ~/Matlab/R2019b/extern/engines/python
 conda activate iqa && python setup.py install
 ```
+
+To evaluate PI, NIQE and MA (`iqa_pi_niqe_ma.m`), download `src.zip` at [Releases](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/releases), and unzip it as `./iqa_pi_niqe_ma/src/`.
 
 ### 2.3. Run
 
 1. Edit `opt.yml`.
 2. Run: `conda activate iqa && CUDA_VISIBLE_DEVICES=0 python main.py -case div2k_qf10 [-opt opt.yml -mode a -if_src true -if_dst true -start_idx 0 -max_num -1]`.
 
-You can also run all the IQA scripts separately.
-
 ### 2.4. Note
 
 - The list of the evaluated images is based on `tar_dir`.
-- The NIQE model (PIRM 18' version, denoted by NIQE) is different from the MATLAB built-in version (denoted by NIQE-M); so as the results. We evaluate both of them.
 - We do not evaluate the FID score between two images, but two folders of images instead. Therefore, FID returns only one score for all images. Check [here](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/wiki/Do-Not-Evaluate-FID-between-Two-Images).
 
 ## 3. Learn More
