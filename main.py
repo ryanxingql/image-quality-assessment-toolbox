@@ -55,16 +55,22 @@ args.if_piqe = opts_dict['if_piqe']
 
 if args.tar_dir.split('/')[0] == '~':
     args.tar_dir = Path.home() / ('/'.join(args.tar_dir.split('/')[1:]))
+else:
+    args.tar_dir = Path(args.tar_dir)
 
 if args.if_dst:
     assert args.dst_dir is not None, 'NO DST DIR IS GIVEN!'
     if args.dst_dir.split('/')[0] == '~':
         args.dst_dir = Path.home() / ('/'.join(args.dst_dir.split('/')[1:]))
+    else:
+        args.dst_dir = Path(args.dst_dir)
 
 if args.if_src:
     assert args.src_dir is not None, 'NO SRC DIR IS GIVEN!'
     if args.src_dir.split('/')[0] == '~':
         args.src_dir = Path.home() / ('/'.join(args.src_dir.split('/')[1:]))
+    else:
+        args.src_dir = Path(args.src_dir)
 
 # Make log dir
 
