@@ -1,6 +1,6 @@
 # Image Quality Assessment Toolbox
 
-<img src="https://user-images.githubusercontent.com/34084019/124723413-9f16c200-df3d-11eb-8d45-1241fe92259f.gif" width="70%">
+<img src="https://user-images.githubusercontent.com/34084019/124798339-cf824e80-df85-11eb-948f-c0612834c404.gif" width="70%">
 
 :e-mail: Feel free to contact: `ryanxingql@gmail.com`.
 
@@ -77,9 +77,9 @@ conda activate iqa && python setup.py install
 
 Note:
 
-- `src`: source, e.g., raw/pristine images.
-- `dst`: distorted, e.g., jpeg-compressed images.
 - `tar`: target, e.g., enhanced compressed images.
+- `dst`: distorted, e.g., jpeg-compressed images.
+- `src`: source, e.g., raw/pristine images.
 - The list of the evaluated images is based on `tar_dir`.
 
 ## 4. Licenses
