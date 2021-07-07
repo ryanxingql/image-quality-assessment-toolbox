@@ -1,5 +1,7 @@
 # Image Quality Assessment Toolbox
 
+<img src="https://user-images.githubusercontent.com/34084019/124723413-9f16c200-df3d-11eb-8d45-1241fe92259f.gif" width="70%">
+
 :e-mail: Feel free to contact: `ryanxingql@gmail.com`.
 
 ## 0. Archive
