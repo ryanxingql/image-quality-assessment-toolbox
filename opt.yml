@@ -1,5 +1,5 @@
 div2k_qf10:
-  tar_dir: ~/data/div2k/jpeg/qf10  # 100 images
+  tar_dir: ~/data/div2k/jpeg/qf10  # 900 images
   dst_dir: ~
   src_dir: ~/data/div2k/raw
 
@@ -18,7 +18,7 @@ div2k_qf10:
   if_piqe: True
 
 div2k_qp42:
-  tar_dir: ~/data/div2k/bpg/qp42  # 100 images
+  tar_dir: ~/data/div2k/bpg/qp42  # 900 images
   dst_dir: ~
   src_dir: ~/data/div2k/raw
 
@@ -37,7 +37,7 @@ div2k_qp42:
   if_piqe: True
 
 rbqe_div2k_qf10:
-  tar_dir: ~/data/backup/rbqe_div2k_jpeg/enhanced_images_qf10  # 900 images
+  tar_dir: ~/data/backup/rbqe_div2k_jpeg/enhanced_images_qf10  # 100 images
   dst_dir: ~/data/div2k/jpeg/qf10
   src_dir: ~/data/div2k/raw
 
@@ -56,7 +56,7 @@ rbqe_div2k_qf10:
   if_piqe: True
 
 rbqe_div2k_qp42:
-  tar_dir: ~/data/backup/rbqe_div2k_bpg/enhanced_images_qp42  # 900 images
+  tar_dir: ~/data/backup/rbqe_div2k_bpg/enhanced_images_qp42  # 100 images
   dst_dir: ~/data/div2k/bpg/qp42
   src_dir: ~/data/div2k/raw
 
