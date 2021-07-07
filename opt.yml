@@ -1,19 +1,75 @@
 div2k_qf10:
+  tar_dir: ~/data/div2k/jpeg/qf10  # 100 images
+  dst_dir: ~
   src_dir: ~/data/div2k/raw
+
+  if_dst: False  # for NR/FR
+  if_src: True  # for NR
+
+  start_idx: 0
+  max_num: -1  # -1: all
+
+  if_psnr: True
+  if_ssim: True
+  if_msssim: True
+  if_lpips: True
+  if_brisque: True
+  if_niqe: True
+  if_piqe: True
+
+div2k_qp42:
+  tar_dir: ~/data/div2k/bpg/qp42  # 100 images
+  dst_dir: ~
+  src_dir: ~/data/div2k/raw
+
+  if_dst: False  # for NR/FR
+  if_src: True  # for NR
+
+  start_idx: 0
+  max_num: -1  # -1: all
+
+  if_psnr: True
+  if_ssim: True
+  if_msssim: True
+  if_lpips: True
+  if_brisque: True
+  if_niqe: True
+  if_piqe: True
+
+rbqe_div2k_qf10:
+  tar_dir: ~/data/backup/rbqe_div2k_jpeg/enhanced_images_qf10  # 900 images
   dst_dir: ~/data/div2k/jpeg/qf10
-  tar_dir: ~/data/div2k/jpeg/qf10
-
-  if_lpips: True
-  if_fid: True
-  if_psnr: True
-  if_pi: True
-
-dcad_div2k_qp42:
   src_dir: ~/data/div2k/raw
-  dst_dir: ~/data/div2k/bpg/qp42
-  tar_dir: ~/data/pycharm/PowerQE/exp/dcad_div2k_qp42/enhanced_images
 
-  if_lpips: True
-  if_fid: True
+  if_dst: True  # for NR/FR
+  if_src: True  # for NR
+
+  start_idx: 0
+  max_num: -1  # -1: all
+
   if_psnr: True
-  if_pi: True
+  if_ssim: True
+  if_msssim: True
+  if_lpips: True
+  if_brisque: True
+  if_niqe: True
+  if_piqe: True
+
+rbqe_div2k_qp42:
+  tar_dir: ~/data/backup/rbqe_div2k_bpg/enhanced_images_qp42  # 900 images
+  dst_dir: ~/data/div2k/bpg/qp42
+  src_dir: ~/data/div2k/raw
+
+  if_dst: True  # for NR/FR
+  if_src: True  # for NR
+
+  start_idx: 0
+  max_num: -1  # -1: all
+
+  if_psnr: True
+  if_ssim: True
+  if_msssim: True
+  if_lpips: True
+  if_brisque: True
+  if_niqe: True
+  if_piqe: True
