@@ -105,7 +105,9 @@ if args.max_num == -1:
 else:
     tar_img_path_lst = sorted(Path(args.tar_dir).resolve().glob('*.png'))[args.start_idx: args.start_idx + args.max_num]
 
-print(f'\n{len(tar_img_path_lst)} images were found.')
+num_img = len(tar_img_path_lst)
+assert num_img != 0, 'NO IMAGES WERE FOUND!'
+print(f'\n{num_img} images were found.')
 
 # Python based
 
