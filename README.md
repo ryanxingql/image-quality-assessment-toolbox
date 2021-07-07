@@ -1,84 +1,88 @@
 # Image Quality Assessment Toolbox
 
-Current version: [v2]; archived version: [[v1]](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/tree/1067537dab42509ef4b3cbd55c66a326a1d8dc7a)
-
 :e-mail: Feel free to contact: `ryanxingql@gmail.com`.
+
+## 0. Archive
+
+- v3: add MS-SSIM index, BRISQUE and PIQE; re-implement PSNR and SSIM over Python; remove Ma _et al._ and PI due to the low computation efficiency; remove FID since it is not an image quality evaluator.
+- [v2](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/commit/d2f5e9dedd1b7bc0624142b67dbd0eee575b15e8): unify all scripts of algorithms.
+- [v1](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/tree/1067537dab42509ef4b3cbd55c66a326a1d8dc7a): the first formal version.
 
 ## 1. Content
 
-|metric|class|note|better|range|ref|platform|
+|metric|class|description|better|range|ref|
+|:-|:-|:-|:-|:-|:-|
+|peak signal-to-noise ratio (PSNR)|FR|The ratio of the maximum pixel intensity to the power of the distortion.|higher|`[0, inf)`|[[WIKI]](https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio)|
+|structural similarity (SSIM) index|FR|Local similarity of luminance, contrast and structure of two image.|higher|`(?, 1]`|[[paper]](https://ieeexplore.ieee.org/document/1284395) [[WIKI]](https://en.wikipedia.org/wiki/Structural_similarity)|
+|multi-scale structural similarity (MS-SSIM) index|FR|Based on SSIM; combine luminance information at the highest resolution level with structure and contrast information at several down-sampled resolutions, or scales.|higher|`(?, 1]`|[[paper]](https://ieeexplore.ieee.org/document/1292216) [[code]](https://github.com/VainF/pytorch-msssim)|
+|learned perceptual image patch similarity (LPIPS)|FR|Obtain L2 distance between AlexNet/SqueezeNet/VGG activations of reference and distorted images; train a predictor to learn the mapping from the distance to similarity score. Trainable.|lower|`[0, ?)`|[[paper]](https://arxiv.org/abs/1801.03924) [[official repo]](https://github.com/richzhang/PerceptualSimilarity)|
+|blind/referenceless image spatial quality evaluator (BRISQUE)|NR|Model Gaussian distributions of mean subtracted contrast normalized (MSCN) features; obtain 36-dim Gaussian parameters; train an SVM to learn the mapping from feature space to quality score.|lower|`[0, ?)`|[[paper]](https://ieeexplore.ieee.org/document/6272356)|
+|natural image quality evaluator (NIQE)|NR|Mahalanobis distance between two multi-variate Gaussian models of 36-dim features from natural (training) and input sharp patches.|lower|`[0, ?)`|[[paper]](https://ieeexplore.ieee.org/document/6353522)|
+|Perception based image quality evaluator (PIQE)|NR|Similar to NIQE; block-wise. PIQE is less computationally efficient than NIQE, but it provides local measures of quality in addition to a global quality score.|lower|`[0, 100]`|[[paper]](https://ieeexplore.ieee.org/document/7084843)|
+
+Notations:
+
+- FR: Full-reference quality metric.
+- NR: No-reference quality metric.
+
+Archived:
+
+|metric|class|description|better|range|ref|where|
 |:-|:-|:-|:-|:-|:-|:-|
-|peak signal-to-noise ratio (PSNR)|FR|Higher PSNR corresponds to lower mean squared error (MSE). When error at each pixel is MAX, PSNR equals to 0.|higher|[0, inf)|[[WIKI]](https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio)|MATLAB|
-|structural similarity index measure (SSIM)|FR|Difference between luminances (mean values), contrasts (variances) and structures (covariances) of two image patches.|higher|(?, 1]|[[WIKI]](https://en.wikipedia.org/wiki/Structural_similarity)|MATLAB|
-|natural image quality evaluator (NIQE)|NR|Mahalanobis distance between two multivariate Gaussian models of 36-dim features from natural (training) and input sharp patches.|lower|[0, ?)|[[MATLAB]](https://www.mathworks.com/help/images/ref/niqe.html) [[paper]](https://ieeexplore.ieee.org/document/6353522)|MATLAB|
-|Ma *et al.* (MA)|NR|Joint difference in DCT, wavelet and PCA domains. Very slow!|higher|[0, 10]|[[official repo]](https://github.com/chaoma99/sr-metric) [[paper]](https://arxiv.org/abs/1612.05890)|MATLAB|
-|perceptual index (PI)|NR|0.5 * ((10 - MA) + NIQE). Very slow due to MA!|lower|[0, ?)|[[official repo]](https://github.com/roimehrez/PIRM2018) [[paper]](https://arxiv.org/abs/1809.07517)|MATLAB|
-|learned perceptual image patch similarity (LPIPS)|FR|L2 distance between AlexNet/SqueezeNet/VGG activations of reference and distorted images. trainable.|lower|[0, ?)|[[official repo]](https://github.com/richzhang/PerceptualSimilarity)|PYTORCH|
-|Fréchet inception distance (FID)|FR|Wasserstein-2 distance between two vectors of InceptionV3 activations (fed with reference and distorted images).|lower|[0, ?)|[[cleanfid repo]](https://github.com/GaParmar/clean-fid/tree/ced1e5657d4d9a9cf79358445a0bfcc3bb4d44ff) [[paper]](https://arxiv.org/abs/1706.08500)|PYTORCH|
-|mean opinion score (MOS)|sub.|Image rating under strict rules and environment.|higher|[0, 100]|[[BT.500]](https://www.itu.int/rec/R-REC-BT.500/)|human|
-|degradation/difference/differential MOS (DMOS)|sub.|Difference between MOS values of reference and distorted images.|lower|[0, 100]|[[src1]](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=762345)  [[src2]](https://videoclarity.com/PDF/WPUnderstandingJNDMOSPSNR.pdf)|human|
+|Ma *et al.* (MA)|NR|Extract features in DCT, wavelet and PCA domains; train a regression forest to learn the mapping from feature space to quality score. Very slow!|higher|`[0, 10]`|[[paper]](https://arxiv.org/abs/1612.05890) [[official repo]](https://github.com/chaoma99/sr-metric)|[[v2]](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/commit/d2f5e9dedd1b7bc0624142b67dbd0eee575b15e8)|
+|perceptual index (PI)|NR|0.5 * ((10 - MA) + NIQE). Very slow due to MA!|lower|`[0, ?)`|[[paper]](https://arxiv.org/abs/1809.07517) [[official repo]](https://github.com/roimehrez/PIRM2018)|[[v2]](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/commit/d2f5e9dedd1b7bc0624142b67dbd0eee575b15e8)|
+|Fréchet inception distance (FID)|FR|Wasserstein-2 distance between two Gaussian models of InceptionV3 activations (fed with reference and distorted image data-sets, respectively).|lower|`[0, ?)`|[[paper]](https://arxiv.org/abs/1706.08500) [[cleanfid repo]](https://github.com/GaParmar/clean-fid/tree/ced1e5657d4d9a9cf79358445a0bfcc3bb4d44ff)|[[v2]](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/commit/d2f5e9dedd1b7bc0624142b67dbd0eee575b15e8)|
 
-## 2. Evaluation
+Subjective quality metric(s):
 
-### 2.1. Notation
+|metric|description|better|range|ref|
+|:-|:-|:-|:-|:-|
+|mean opinion score (MOS)|Image rating under certain standards.|higher|`[0, 100]`|[[BT.500]](https://www.itu.int/rec/R-REC-BT.500/)|
+|degradation/difference/differential MOS (DMOS)|Difference between MOS values of reference and distorted images.|lower|`[0, 100]`|[[ref1]](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=762345)  [[ref2]](https://videoclarity.com/PDF/WPUnderstandingJNDMOSPSNR.pdf)|
 
-- src: source, e.g., raw images.
-- dst: distorted, e.g., jpeg-compressed images.
-- tar: target, e.g., enhanced compressed images.
-- The NIQE model (PIRM 18' version, denoted by NIQE) is different from the MATLAB built-in version (denoted by NIQE-M); so as the results.
-
-### 2.2. Dependency
+## 2. Dependency
 
 ```bash
 conda create -n iqa python=3.7 -y && conda activate iqa
-python -m pip install pyyaml
-```
+python -m pip install pyyaml opencv-python tqdm pandas
 
-If you want to evaluate LPIPS and FID using PYTORCH, the following packages are needed:
+# for psnr/ssim
+python -m pip install scikit-image==0.18.2
 
-```bash
-conda activate iqa
-
-# basis
+# for ms-ssim/lpips
+# test under cuda 10.x
 python -m pip install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
-python -m pip install opencv-python scipy tqdm
 
 # for lpips
 python -m pip install lpips==0.1.3
-
-# for fid
-python -m pip install requests==2.25.1
 ```
 
-If you want to evaluate PSNR, SSIM, NIQE-M, PI, NIQE and MA using MATLAB, you should install MATLAB IO for PYTHON. Check [here](https://www.mathworks.com/help/matlab/matlab_external/get-started-with-matlab-engine-for-python.html). My solution:
+For BRISQUE and NIQE, MATLAB >= R2017b is required; for PIQE, MATLAB >= R2018b is required.
+
+If you want to use `main.py` to run MATLAB scripts, i.e., call MATLAB in Python, you should install MATLAB package in Conda environment. Check [here](https://www.mathworks.com/help/matlab/matlab_external/get-started-with-matlab-engine-for-python.html). My solution:
 
 ```bash
-# first install MATLAB
-
-# linux
+# given linux
 cd "matlabroot/extern/engines/python"  # e.g., ~/Matlab/R2019b/extern/engines/python
 conda activate iqa && python setup.py install
 ```
 
-To evaluate PI, NIQE and MA (`iqa_pi_niqe_ma.m`), download `src.zip` at [Releases](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/releases), and unzip it as `./iqa_pi_niqe_ma/src/`.
-
-### 2.3. Run
+## 3. Evaluation
 
 1. Edit `opt.yml`.
-2. Run: `conda activate iqa && CUDA_VISIBLE_DEVICES=0 python main.py -case div2k_qf10 [-opt opt.yml -mode a -if_src true -if_dst true -start_idx 0 -max_num -1]`.
+2. Run: `conda activate iqa &&[CUDA_VISIBLE_DEVICES=0] python main.py -case div2k_qf10 [-opt opt.yml -clean false]`. `[<args>]` are optional.
+3. Output: CSV log files at `./logs/`.
 
-### 2.4. Note
+Note:
 
+- `src`: source, e.g., raw/pristine images.
+- `dst`: distorted, e.g., jpeg-compressed images.
+- `tar`: target, e.g., enhanced compressed images.
 - The list of the evaluated images is based on `tar_dir`.
-- We do not evaluate the FID score between two images, but two folders of images instead. Therefore, FID returns only one score for all images. Check [here](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/wiki/Do-Not-Evaluate-FID-between-Two-Images).
-
-## 3. Learn More
-
-If you want to learn more about this repository, check [here](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/wiki).
 
 ## 4. Licenses
 
-Please refer to the official repositories.
+Please refer to the references.
 
 If you find this repository helpful, you may cite:
 
