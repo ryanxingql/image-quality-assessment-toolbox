@@ -168,8 +168,8 @@ function brisque_niqe_piqe(log_fp, start_row, start_column, tar_path_lst, dst_di
     fprintf(flog, '%s\n', record_row);
 
     % print all
-
-    disp(['\n' header_row]);
+    disp(' ')
+    disp(['ave.' header_row(10:end)]);  % skip img_name
     disp(record_row);
 
 end

@@ -99,8 +99,6 @@ if args.max_num == -1:
 else:
     tar_img_path_lst = sorted(Path(args.tar_dir).resolve().glob('*.png'))[args.start_idx: args.start_idx + args.max_num]
 
-result_lst_lst = dict()
-
 print(f'\n{len(tar_img_path_lst)} images were found.')
 
 # Python based
