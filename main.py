@@ -193,7 +193,7 @@ if args.if_psnr or args.if_ssim or args.if_msssim or args.if_lpips:
         else:
             df.to_csv(log_fp, header=False, index=False, mode='a', float_format='%.3f')
 
-    info_dict = dict(img_name=['ave'])
+    info_dict = dict(img_name=['ave.'])
     for key_, lst_ in df_total.iteritems():
         if key_ == 'img_name':
             continue
