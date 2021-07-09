@@ -10,21 +10,10 @@ from cv2 import cv2
 
 # Load options
 
-def _str2bool(v):
-    if isinstance(v, bool):
-        return v
-    if v.lower() in ('yes', 'true', 't', 'y', '1'):
-        return True
-    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
-        return False
-    else:
-        raise argparse.ArgumentTypeError('BOOLEAN VALUE EXPECTED.')
-
-
 parser = argparse.ArgumentParser()
 parser.add_argument('--opt', '-opt', type=str, default='opt.yml', help='path to option YAML file.')
 parser.add_argument('--case', '-case', type=str, help='specified case in YML.')
-parser.add_argument('--if_clean', '-clean', type=_str2bool, default=False, help='clean all logs with the same case.')
+parser.add_argument('--clean', '-clean', action='store_true', help='clean all logs with the same case.')
 args = parser.parse_args()
 
 current_dir = Path(__file__).resolve().parent
@@ -80,7 +69,7 @@ log_dir = current_dir / 'logs'
 log_dir.mkdir(exist_ok=True)
 log_fp = Path(log_dir / log_name)
 
-if args.if_clean:
+if args.clean:
     old_log_lst = log_dir.glob(f'log_{args.case}_*.csv')
     for old_log in old_log_lst:
         old_log.unlink()

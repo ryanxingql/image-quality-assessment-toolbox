@@ -72,7 +72,7 @@ conda activate iqa && python setup.py install
 ## 3. Evaluation
 
 1. Edit `opt.yml`.
-2. Run: `conda activate iqa &&[CUDA_VISIBLE_DEVICES=0] python main.py -case div2k_qf10 [-opt opt.yml -clean false]`. `[<args>]` are optional.
+2. Run: `conda activate iqa &&[CUDA_VISIBLE_DEVICES=0] python main.py -case div2k_qf10 [-opt opt.yml -clean]`. `[<args>]` are optional.
 3. Output: CSV log files at `./logs/`.
 
 Note:
