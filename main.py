@@ -40,6 +40,8 @@ args.if_brisque = opts_dict['if_brisque']
 args.if_niqe = opts_dict['if_niqe']
 args.if_piqe = opts_dict['if_piqe']
 
+args.niqe_model_path = opts_dict['niqe_model_path'] if opts_dict['niqe_model_path'] is not None else -1
+
 # Modify path
 
 if args.tar_dir.split('/')[0] == '~':
@@ -206,7 +208,7 @@ if args.if_brisque or args.if_niqe or args.if_piqe:
         start_column += 1
     tar_img_path_lst = [str(tar_img_path) for tar_img_path in tar_img_path_lst]
     eng.brisque_niqe_piqe(str(log_fp), start_row, start_column, tar_img_path_lst, str(args.dst_dir), str(args.src_dir),
-                          args.if_brisque, args.if_niqe, args.if_piqe, args.if_dst, args.if_src, nargout=0)
+                          args.if_brisque, args.if_niqe, args.if_piqe, args.if_dst, args.if_src, args.niqe_model_path, nargout=0)
     eng.quit()
 
 print('\ndone.')

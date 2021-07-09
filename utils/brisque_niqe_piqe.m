@@ -1,7 +1,7 @@
 % log_fp: str, log file path.
 % tar_path_lst: cell, list of tar image paths.
 % if_brisque/if_niqe/if_piqe/if_dst/if_src: logical
-function brisque_niqe_piqe(log_fp, start_row, start_column, tar_path_lst, dst_dir, src_dir, if_brisque, if_niqe, if_piqe, if_dst, if_src)
+function brisque_niqe_piqe(log_fp, start_row, start_column, tar_path_lst, dst_dir, src_dir, if_brisque, if_niqe, if_piqe, if_dst, if_src, niqe_model_path)
     % read existing csv into cell A
 
     flog = fopen(log_fp, 'r');
@@ -84,17 +84,24 @@ function brisque_niqe_piqe(log_fp, start_row, start_column, tar_path_lst, dst_di
         end
 
         if if_niqe
+            % load pretrained model if exist
+            if niqe_model_path ~= -1
+                load(niqe_model_path, 'niqe_model');
+            else
+                niqe_model = niqeModel;  % load default model
+            end
+
             if idx_img == 1
                 header_row = [header_row ',niqe_tar'];
             end
-            niqe_tar = niqe(tar_img);
+            niqe_tar = niqe(tar_img, niqe_model);
             T = [T table(niqe_tar)];
             record_row = [record_row sprintf(',%.3f', niqe_tar)];
             if if_dst
                 if idx_img == 1
                     header_row = [header_row ',niqe_dst'];
                 end
-                niqe_dst = niqe(dst_img);
+                niqe_dst = niqe(dst_img, niqe_model);
                 T = [T table(niqe_dst)];
                 record_row = [record_row sprintf(',%.3f', niqe_dst)];
             end
@@ -102,7 +109,7 @@ function brisque_niqe_piqe(log_fp, start_row, start_column, tar_path_lst, dst_di
                 if idx_img == 1
                     header_row = [header_row ',niqe_src'];
                 end
-                niqe_src = niqe(src_img);
+                niqe_src = niqe(src_img, niqe_model);
                 T = [T table(niqe_src)];
                 record_row = [record_row sprintf(',%.3f', niqe_src)];
             end
