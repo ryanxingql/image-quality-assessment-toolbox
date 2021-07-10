@@ -84,7 +84,7 @@ Note:
 
 ## 4. Licenses
 
-Please refer to the references.
+We adopt Apache License v2.0. For other licenses, please refer to our references.
 
 If you find this repository helpful, you may cite:
 
