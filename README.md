@@ -82,9 +82,9 @@ Note:
 - `src`: source, e.g., raw/pristine images.
 - The list of the evaluated images is based on `tar_dir`.
 
-## 4. Licenses
+## 4. License
 
-We adopt Apache License v2.0. For other licenses, please refer to our references.
+We adopt Apache License v2.0. For other licenses, please refer to the references.
 
 If you find this repository helpful, you may cite:
 
