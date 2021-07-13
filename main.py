@@ -22,12 +22,12 @@ with open(opt_fp, 'r') as fp:
     opts_dict = yaml.load(fp, Loader=yaml.FullLoader)
 opts_dict = opts_dict[args.case]
 
-args.src_dir = opts_dict['src_dir']
-args.dst_dir = opts_dict['dst_dir']
 args.tar_dir = opts_dict['tar_dir']
+args.dst_dir = opts_dict['dst_dir']
+args.src_dir = opts_dict['src_dir']
 
-args.if_src = opts_dict['if_src']
 args.if_dst = opts_dict['if_dst']
+args.if_src = opts_dict['if_src']
 
 args.start_idx = opts_dict['start_idx']
 args.max_num = opts_dict['max_num']
@@ -78,9 +78,9 @@ if args.clean:
 
 # Record options
 
-opt_dict_ = dict(key_=['src_dir', 'dst_dir', 'tar_dir', 'if_src', 'if_dst', 'start_idx', 'max_num'],
-                 value_=[args.src_dir, args.dst_dir, args.tar_dir, args.if_src, args.if_dst, args.start_idx,
-                         args.max_num])
+opt_dict_ = dict(key_=['tar_dir', 'dst_dir', 'src_dir', 'if_dst', 'if_src', 'start_idx', 'max_num', 'niqe_model_path'],
+                 value_=[args.tar_dir, args.dst_dir, args.src_dir, args.if_dst, args.if_src, args.start_idx,
+                         args.max_num, args.niqe_model_path])
 print('\nreview:')
 print(log_fp)
 for key_, value_ in zip(opt_dict_['key_'], opt_dict_['value_']):
