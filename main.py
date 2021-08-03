@@ -56,12 +56,13 @@ if args.if_dst:
     else:
         args.dst_dir = Path(args.dst_dir)
 
-if args.if_src:
-    assert args.src_dir is not None, 'NO SRC DIR IS GIVEN!'
+if args.src_dir is not None:
     if args.src_dir.split('/')[0] == '~':
         args.src_dir = Path.home() / ('/'.join(args.src_dir.split('/')[1:]))
     else:
         args.src_dir = Path(args.src_dir)
+else:
+    assert not (args.if_src or args.if_psnr or args.if_ssim or args.if_msssim or args.if_lpips), 'NO SRC DIR IS GIVEN!'
 
 # Make log dir
 
