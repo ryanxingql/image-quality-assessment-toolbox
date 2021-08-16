@@ -11,9 +11,10 @@ from cv2 import cv2
 # Load options
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--opt', '-opt', type=str, default='opt.yml', help='path to option YAML file.')
-parser.add_argument('--case', '-case', type=str, help='specified case in YML.')
-parser.add_argument('--clean', '-clean', action='store_true', help='clean all logs with the same case.')
+parser.add_argument('--opt', '-opt', type=str, default='opt.yml', help='Path to option YAML file.')
+parser.add_argument('--case', '-case', type=str, help='Specified case in YML.')
+parser.add_argument('--log_dir', '-ld', type=str, default=None, help='Which directory to save log.')
+parser.add_argument('--clean', '-clean', action='store_true', help='Clean all logs with the same case.')
 args = parser.parse_args()
 
 current_dir = Path(__file__).resolve().parent
@@ -40,7 +41,7 @@ args.if_brisque = opts_dict['if_brisque']
 args.if_niqe = opts_dict['if_niqe']
 args.if_piqe = opts_dict['if_piqe']
 
-args.niqe_model_path = opts_dict['niqe_model_path'] if opts_dict['niqe_model_path'] is not None else -1
+args.niqe_model_path = str((current_dir / Path(opts_dict['niqe_model_path'])).resolve()) if opts_dict['niqe_model_path'] is not None else -1
 
 # Modify path
 
@@ -68,7 +69,7 @@ else:
 
 timestamp = time.strftime('%Y%m%d_%H%M%S', time.localtime())
 log_name = f'log_{args.case}_{timestamp}.csv'
-log_dir = current_dir / 'logs'
+log_dir = current_dir / 'logs' if args.log_dir is None else Path(args.log_dir)
 log_dir.mkdir(exist_ok=True)
 log_fp = Path(log_dir / log_name)
 
@@ -201,7 +202,7 @@ if args.if_brisque or args.if_niqe or args.if_piqe:
     import matlab.engine
 
     eng = matlab.engine.start_matlab()
-    eng.addpath('./utils', nargout=0)
+    eng.addpath(str(current_dir / './utils'), nargout=0)
 
     start_row = len(opt_dict_['key_']) + 1
     start_column = args.if_psnr + args.if_ssim + args.if_msssim + args.if_lpips + 1
