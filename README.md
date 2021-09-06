@@ -89,7 +89,7 @@ We adopt Apache License v2.0. For other licenses, please refer to the references
 If you find this repository helpful, you may cite:
 
 ```tex
-@misc{IQAT_xing_2021,
+@misc{2021xing3,
   author = {Qunliang Xing},
   title = {Image Quality Assessment Toolbox},
   howpublished = "\url{https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox}",
