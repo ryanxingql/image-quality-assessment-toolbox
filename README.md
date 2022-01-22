@@ -7,8 +7,8 @@
 ## 0. Archive
 
 - v3: add MS-SSIM index, BRISQUE and PIQE; re-implement PSNR and SSIM over Python; remove Ma _et al._ and PI due to the low computation efficiency; remove FID since it is not an image quality evaluator.
-- [v2](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/tree/d2f5e9dedd1b7bc0624142b67dbd0eee575b15e8): unify all scripts of algorithms.
-- [v1](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/tree/1067537dab42509ef4b3cbd55c66a326a1d8dc7a): the first formal version.
+- [v2](https://github.com/ryanxingql/image-quality-assessment-toolbox/tree/d2f5e9dedd1b7bc0624142b67dbd0eee575b15e8): unify all scripts of algorithms.
+- [v1](https://github.com/ryanxingql/image-quality-assessment-toolbox/tree/1067537dab42509ef4b3cbd55c66a326a1d8dc7a): the first formal version.
 
 ## 1. Content
 
@@ -31,9 +31,9 @@ Archived:
 
 |metric|class|description|better|range|ref|where|
 |:-|:-|:-|:-|:-|:-|:-|
-|Ma *et al.* (MA)|NR|Extract features in DCT, wavelet and PCA domains; train a regression forest to learn the mapping from feature space to quality score. Very slow!|higher|`[0, 10]`|[[paper]](https://arxiv.org/abs/1612.05890) [[official repo]](https://github.com/chaoma99/sr-metric)|[[v2]](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/tree/d2f5e9dedd1b7bc0624142b67dbd0eee575b15e8)|
-|perceptual index (PI)|NR|0.5 * ((10 - MA) + NIQE). Very slow due to MA!|lower|`[0, ?)`|[[paper]](https://arxiv.org/abs/1809.07517) [[official repo]](https://github.com/roimehrez/PIRM2018)|[[v2]](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/tree/d2f5e9dedd1b7bc0624142b67dbd0eee575b15e8)|
-|Fréchet inception distance (FID)|FR|Wasserstein-2 distance between two Gaussian models of InceptionV3 activations (fed with reference and distorted image data-sets, respectively).|lower|`[0, ?)`|[[paper]](https://arxiv.org/abs/1706.08500) [[cleanfid repo]](https://github.com/GaParmar/clean-fid/tree/ced1e5657d4d9a9cf79358445a0bfcc3bb4d44ff)|[[v2]](https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox/tree/d2f5e9dedd1b7bc0624142b67dbd0eee575b15e8)|
+|Ma *et al.* (MA)|NR|Extract features in DCT, wavelet and PCA domains; train a regression forest to learn the mapping from feature space to quality score. Very slow!|higher|`[0, 10]`|[[paper]](https://arxiv.org/abs/1612.05890) [[official repo]](https://github.com/chaoma99/sr-metric)|[[v2]](https://github.com/ryanxingql/image-quality-assessment-toolbox/tree/d2f5e9dedd1b7bc0624142b67dbd0eee575b15e8)|
+|perceptual index (PI)|NR|0.5 * ((10 - MA) + NIQE). Very slow due to MA!|lower|`[0, ?)`|[[paper]](https://arxiv.org/abs/1809.07517) [[official repo]](https://github.com/roimehrez/PIRM2018)|[[v2]](https://github.com/ryanxingql/image-quality-assessment-toolbox/tree/d2f5e9dedd1b7bc0624142b67dbd0eee575b15e8)|
+|Fréchet inception distance (FID)|FR|Wasserstein-2 distance between two Gaussian models of InceptionV3 activations (fed with reference and distorted image data-sets, respectively).|lower|`[0, ?)`|[[paper]](https://arxiv.org/abs/1706.08500) [[cleanfid repo]](https://github.com/GaParmar/clean-fid/tree/ced1e5657d4d9a9cf79358445a0bfcc3bb4d44ff)|[[v2]](https://github.com/ryanxingql/image-quality-assessment-toolbox/tree/d2f5e9dedd1b7bc0624142b67dbd0eee575b15e8)|
 
 Subjective quality metric(s):
 
@@ -92,7 +92,7 @@ If you find this repository helpful, you may cite:
 @misc{2021xing3,
   author = {Qunliang Xing},
   title = {Image Quality Assessment Toolbox},
-  howpublished = "\url{https://github.com/RyanXingQL/Image-Quality-Assessment-Toolbox}",
+  howpublished = "\url{https://github.com/ryanxingql/image-quality-assessment-toolbox}",
   year = {2021},
   note = "[Online; accessed 11-April-2021]"
 }
