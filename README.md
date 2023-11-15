@@ -1,14 +1,16 @@
 # Image Quality Assessment Toolbox
 
+:rocket: Note: This repository is not currently updated. For the latest metrics, consider exploring: https://github.com/chaofengc/IQA-PyTorch
+
 <img src="https://user-images.githubusercontent.com/34084019/124798339-cf824e80-df85-11eb-948f-c0612834c404.gif" width="70%">
 
 :e-mail: Feel free to contact: `ryanxingql@gmail.com`.
 
 ## 0. Archive
 
-- v3: add MS-SSIM index, BRISQUE and PIQE; re-implement PSNR and SSIM over Python; remove Ma _et al._ and PI due to the low computation efficiency; remove FID since it is not an image quality evaluator.
-- [v2](https://github.com/ryanxingql/image-quality-assessment-toolbox/tree/d2f5e9dedd1b7bc0624142b67dbd0eee575b15e8): unify all scripts of algorithms.
-- [v1](https://github.com/ryanxingql/image-quality-assessment-toolbox/tree/1067537dab42509ef4b3cbd55c66a326a1d8dc7a): the first formal version.
+- v3: Added MS-SSIM index, BRISQUE, and PIQE; reimplemented PSNR and SSIM in Python; removed Ma _et al._ and PI due to low computation efficiency; removed FID as it is not an image quality evaluator.
+- [v2](https://github.com/ryanxingql/image-quality-assessment-toolbox/tree/d2f5e9dedd1b7bc0624142b67dbd0eee575b15e8): Unified scripts for all algorithms.
+- [v1](https://github.com/ryanxingql/image-quality-assessment-toolbox/tree/1067537dab42509ef4b3cbd55c66a326a1d8dc7a): Initial formal release.
 
 ## 1. Content
 
